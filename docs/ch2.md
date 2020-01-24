@@ -41,11 +41,11 @@ Choosing names that reveal intent can make it much easier to understand and chan
 
 ```java
 public List<int[]> getThem() {
-  List<int[]> list1 = new ArrayList<int[]>();
-  for (int[] x : theList)
-    if (x[0] == 4)
-      list1.add(x);
-  return list1;
+    List<int[]> list1 = new ArrayList<int[]>();
+    for (int[] x : theList)
+        if (x[0] == 4)
+            list1.add(x);
+    return list1;
 }
 ```
 
@@ -79,11 +79,11 @@ Each cell on the board is represented by a simple array. We further find that th
 
 ```java
 public List<int[]> getFlaggedCells() {
-  List<int[]> flaggedCells = new ArrayList<int[]>();
-  for (int[] cell : gameBoard)
-  if (cell[STATUS_VALUE] == FLAGGED)
-    flaggedCells.add(cell);
-  return flaggedCells;
+    List<int[]> flaggedCells = new ArrayList<int[]>();
+    for (int[] cell : gameBoard)
+        if (cell[STATUS_VALUE] == FLAGGED)
+            flaggedCells.add(cell);
+    return flaggedCells;
 }
 ```
 
@@ -97,11 +97,11 @@ We can go further and write a simple class for cells instead of using an array o
 
 ```java
 public List<Cell> getFlaggedCells() {
-  List<Cell> flaggedCells = new ArrayList<Cell>();
-  for (Cell cell : gameBoard)
-    if (cell.isFlagged())
-      flaggedCells.add(cell);
-  return flaggedCells;
+    List<Cell> flaggedCells = new ArrayList<Cell>();
+    for (Cell cell : gameBoard)
+        if (cell.isFlagged())
+            flaggedCells.add(cell);
+    return flaggedCells;
 }
 ```
 
@@ -135,10 +135,10 @@ A truly awful example of disinformative names would be the use of lower-case L o
 
 ```java
 int a = l;
-if ( O == l )
-  a = O1;
+if (O == l)
+    a = O1;
 else
-  l = 01;
+    l = 01;
 ```
 
 The reader may think this a contrivance, but we have examined code where such things were abundant. In one case the author of the code suggested using a different font so that the differences were more obvious, a solution that would have to be passed down to all future developers as oral tradition or in a written document. The problem is conquered with finality and without creating new work products by a simple renaming.
@@ -165,9 +165,9 @@ Number-series naming (a1, a2, .. aN) is the opposite of intentional naming. Such
 
 ```java
 public static void copyChars(char a1[], char a2[]) {
-  for (int i = 0; i < a1.length; i++) {
-    a2[i] = a1[i];
-  }
+    for (int i = 0; i < a1.length; i++) {
+        a2[i] = a1[i];
+    }
 }
 ```
 
@@ -223,10 +223,10 @@ A company I know has genymdhms (generation date, year, month, day, hour, minute,
 
 ```java
 class DtaRcrd102 {
-  private Date genymdhms;
-  private Date modymdhms;
-  private final String pszqint = ”102”;
-  /* … */
+    private Date genymdhms;
+    private Date modymdhms;
+    private final String pszqint = "102";
+    /* … */
 };
 ```
 
@@ -236,11 +236,11 @@ to
 
 ```java
 class Customer {
-  private Date generationTimestamp;
-  private Date modificationTimestamp;;
-  private final String recordId = ”102”;
-  /* … */
-};
+    private Date generationTimestamp;
+    private Date modificationTimestamp;
+    private final String recordId = "102";
+    /* … */
+}
 ```
 
 Intelligent conversation is now possible: “Hey, Mikey, take a look at this record! The generation timestamp is set to tomorrow’s date! How can that be?”
@@ -275,7 +275,7 @@ to
 
 > 和
 
-```java
+```cpp
 int realDaysPerIdealDay = 4;
 const int WORK_DAYS_PER_WEEK = 5;
 int sum = 0;
@@ -327,17 +327,20 @@ You also don’t need to prefix member variables with m\_ anymore. Your classes 
 
 ```java
 public class Part {
-  private String m_dsc; // The textual description
-  void setName(String name) {
-    m_dsc = name;
-  }
+    private String m_dsc; // The textual description
+
+    void setName(String name) {
+        m_dsc = name;
+    }
 }
 _________________________________________________
+
 public class Part {
-  String description;
-  void setDescription(String description) {
-    this.description = description;
-  }
+    String description;
+
+    void setDescription(String description) {
+        this.description = description;
+    }
 }
 ```
 
@@ -385,7 +388,7 @@ Methods should have verb or verb phrase names like postPayment, deletePage, or s
 
 ```java
 string name = employee.getName();
-customer.setName(”mike”);
+customer.setName("mike");
 if (paycheck.isPosted())…
 ```
 
@@ -501,28 +504,28 @@ Listing 2-1 Variables with unclear context.
 
 > 代码清单 2-1 语境不明确的变量
 
-```java
+```cpp
 private void printGuessStatistics(char candidate, int count) {
-  String number;
-  String verb;
-  String pluralModifier;
-  if (count == 0) {
-    number = ”no”;
-    verb = ”are”;
-    pluralModifier = ”s”;
-  } else if (count == 1) {
-    number = ”1”;
-    verb = ”is”;
-    pluralModifier = ””;
-  } else {
-    number = Integer.toString(count);
-    verb = ”are”;
-    pluralModifier = ”s”;
-  }
-  String guessMessage = String.format(
-    ”There %s %s %s%s”, verb, number, candidate, pluralModifier
-  );
-  print(guessMessage);
+    String number;
+    String verb;
+    String pluralModifier;
+    if (count == 0) {
+        number = "no";
+        verb = "are";
+        pluralModifier = "s";
+    } else if (count == 1) {
+        number = "1";
+        verb = "is";
+        pluralModifier = "";
+    } else {
+        number = Integer.toString(count);
+        verb = "are";
+        pluralModifier = "s";
+    }
+    String guessMessage = String.format(
+            "There %s %s %s%s", verb, number, candidate, pluralModifier
+    );
+    print(guessMessage);
 }
 ```
 
@@ -536,44 +539,44 @@ Listing 2-2 Variables have a context.
 
 ```java
 public class GuessStatisticsMessage {
-  private String number;
-  private String verb;
-  private String pluralModifier;
+    private String number;
+    private String verb;
+    private String pluralModifier;
 
-  public String make(char candidate, int count) {
-    createPluralDependentMessageParts(count);
-    return String.format(
-      "There %s %s %s%s",
-      verb, number, candidate, pluralModifier );
-  }
-
-  private void createPluralDependentMessageParts(int count) {
-    if (count == 0) {
-      thereAreNoLetters();
-    } else if (count == 1) {
-      thereIsOneLetter();
-    } else {
-      thereAreManyLetters(count);
+    public String make(char candidate, int count) {
+        createPluralDependentMessageParts(count);
+        return String.format(
+                "There %s %s %s%s",
+                verb, number, candidate, pluralModifier);
     }
-  }
 
-  private void thereAreManyLetters(int count) {
-    number = Integer.toString(count);
-    verb = "are";
-    pluralModifier = "s";
-  }
+    private void createPluralDependentMessageParts(int count) {
+        if (count == 0) {
+            thereAreNoLetters();
+        } else if (count == 1) {
+            thereIsOneLetter();
+        } else {
+            thereAreManyLetters(count);
+        }
+    }
 
-  private void thereIsOneLetter() {
-    number = "1";
-    verb = "is";
-    pluralModifier = "";
-  }
+    private void thereAreManyLetters(int count) {
+        number = Integer.toString(count);
+        verb = "are";
+        pluralModifier = "s";
+    }
 
-  private void thereAreNoLetters() {
-    number = "no";
-    verb = "are";
-    pluralModifier = "s";
-  }
+    private void thereIsOneLetter() {
+        number = "1";
+        verb = "is";
+        pluralModifier = "";
+    }
+
+    private void thereAreNoLetters() {
+        number = "no";
+        verb = "are";
+        pluralModifier = "s";
+    }
 }
 ```
 

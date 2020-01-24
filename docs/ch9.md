@@ -1,4 +1,4 @@
-# 第 9 章 Unit Tests
+# 第 9 章 Unit Tests 单元测试
 
 ![](figures/ch9/9_1fig_martin.jpg)
 
@@ -137,69 +137,67 @@ Listing 9-1 SerializedPageResponderTest.java
 > 代码清单 9-1 SerializedPageResponderTest.java
 
 ```java
-public void testGetPageHieratchyAsXml() throws Exception
-{
+public void testGetPageHieratchyAsXml() throws Exception {
 
-  crawler.addPage(root, PathParser.parse(“PageOne”));
-  crawler.addPage(root, PathParser.parse(“PageOne.ChildOne”));
-  crawler.addPage(root, PathParser.parse(“PageTwo”));
+    crawler.addPage(root, PathParser.parse("PageOne"));
+    crawler.addPage(root, PathParser.parse("PageOne.ChildOne"));
+    crawler.addPage(root, PathParser.parse("PageTwo"));
 
-  request.setResource(“root”);
-  request.addInput(“type”, “pages”);
-  Responder responder = new SerializedPageResponder();
-  SimpleResponse response =
-    (SimpleResponse) responder.makeResponse(
-      new FitNesseContext(root), request);
-  String xml = response.getContent();
+    request.setResource("root");
+    request.addInput("type", "pages");
+    Responder responder = new SerializedPageResponder();
+    SimpleResponse response =
+            (SimpleResponse) responder.makeResponse(
+                    new FitNesseContext(root), request);
+    String xml = response.getContent();
 
-  assertEquals(“text/xml”, response.getContentType());
-  assertSubString(“<name>PageOne</name>”, xml);
-  assertSubString(“<name>PageTwo</name>”, xml);
-  assertSubString(“<name>ChildOne</name>”, xml);
-}
-public void testGetPageHieratchyAsXmlDoesntContainSymbolicLinks()
-throws Exception {
-
-  WikiPage pageOne = crawler.addPage(root, PathParser.parse(“PageOne”));
-  crawler.addPage(root, PathParser.parse(“PageOne.ChildOne”));
-  crawler.addPage(root, PathParser.parse(“PageTwo”));
-
-  PageData data = pageOne.getData();
-  WikiPageProperties properties = data.getProperties();
-  WikiPageProperty symLinks = properties.set(SymbolicPage.PROPERTY_NAME);
-  symLinks.set(“SymPage”, ”PageTwo”);
-  pageOne.commit(data);
-
-  request.setResource(“root”);
-  request.addInput(“type”, ”pages”);
-  Responder responder = new SerializedPageResponder();
-  SimpleResponse response =
-    (SimpleResponse) responder.makeResponse(
-      new FitNesseContext(root), request);
-  String xml = response.getContent();
-
-  assertEquals(“text/xml”, response.getContentType());
-  assertSubString(“<name>PageOne</name>”, xml);
-  assertSubString(“<name>PageTwo</name>”, xml);
-  assertSubString(“<name>ChildOne</name>”, xml);
-  assertNotSubString(“SymPage”, xml);
+    assertEquals("text / xml", response.getContentType());
+    assertSubString(" < name > PageOne </name >", xml);
+    assertSubString(" < name > PageTwo </name >", xml);
+    assertSubString(" < name > ChildOne </name >", xml);
 }
 
-public void testGetDataAsHtml() throws Exception
-{
-  crawler.addPage(root, PathParser.parse(“TestPageOne”), ”test page”);
+public void testGetPageHieratchyAsXmlDoesntContainSymbolicLinks() throws Exception {
 
-  request.setResource(“TestPageOne”);
-  request.addInput(“type”, ”data”);
-  Responder responder = new SerializedPageResponder();
-  SimpleResponse response =
-    (SimpleResponse) responder.makeResponse(
-      new FitNesseContext(root), request);
-  String xml = response.getContent();
+    WikiPage pageOne = crawler.addPage(root, PathParser.parse("PageOne"));
+    crawler.addPage(root, PathParser.parse("PageOne.ChildOne"));
+    crawler.addPage(root, PathParser.parse("PageTwo"));
 
-  assertEquals(“text/xml”, response.getContentType());
-  assertSubString(“test page”, xml);
-  assertSubString(“<Test”, xml);
+    PageData data = pageOne.getData();
+    WikiPageProperties properties = data.getProperties();
+    WikiPageProperty symLinks = properties.set(SymbolicPage.PROPERTY_NAME);
+    symLinks.set("SymPage", "PageTwo");
+    pageOne.commit(data);
+
+    request.setResource("root");
+    request.addInput("type", "pages");
+    Responder responder = new SerializedPageResponder();
+    SimpleResponse response =
+            (SimpleResponse) responder.makeResponse(
+                    new FitNesseContext(root), request);
+    String xml = response.getContent();
+
+    assertEquals("text/xml", response.getContentType());
+    assertSubString("<name>PageOne</name>", xml);
+    assertSubString("<name>PageTwo</name>", xml);
+    assertSubString("<name>ChildOne</name>", xml);
+    assertNotSubString("SymPage", xml);
+}
+
+public void testGetDataAsHtml() throws Exception {
+    crawler.addPage(root, PathParser.parse("TestPageOne"), "test page");
+
+    request.setResource("TestPageOne");
+    request.addInput("type", "data");
+    Responder responder = new SerializedPageResponder();
+    SimpleResponse response =
+            (SimpleResponse) responder.makeResponse(
+                    new FitNesseContext(root), request);
+    String xml = response.getContent();
+
+    assertEquals("text/xml", response.getContentType());
+    assertSubString("test page", xml);
+    assertSubString("<Test", xml);
 }
 ```
 
@@ -223,39 +221,39 @@ Listing 9-2 SerializedPageResponderTest.java (refactored)
 
 ```java
 public void testGetPageHierarchyAsXml() throws Exception {
-  makePages(“PageOne”, “PageOne.ChildOne”, “PageTwo”);
+    makePages("PageOne", "PageOne.ChildOne", "PageTwo");
 
-  submitRequest(“root”, “type:pages”);
+    submitRequest("root", "type:pages");
 
-  assertResponseIsXML();
-  assertResponseContains(
-    “<name>PageOne</name>”, “<name>PageTwo</name>”, “<name>ChildOne</name>”
-  );
+    assertResponseIsXML();
+    assertResponseContains(
+            "<name>PageOne</name>", "<name>PageTwo</name>", "<name>ChildOne</name>"
+    );
 }
 
 public void testSymbolicLinksAreNotInXmlPageHierarchy() throws Exception {
-  WikiPage page = makePage(“PageOne”);
-  makePages(“PageOne.ChildOne”, “PageTwo”);
+    WikiPage page = makePage("PageOne");
+    makePages("PageOne.ChildOne", "PageTwo");
 
-  addLinkTo(page, “PageTwo”, “SymPage”);
+    addLinkTo(page, "PageTwo", "SymPage");
 
-  submitRequest(“root”, “type:pages”);
+    submitRequest("root", "type:pages");
 
-  assertResponseIsXML();
-  assertResponseContains(
-    “<name>PageOne</name>”, “<name>PageTwo</name>”,
-          “<name>ChildOne</name>”
-  );
-  assertResponseDoesNotContain(“SymPage”);
+    assertResponseIsXML();
+    assertResponseContains(
+            "<name>PageOne</name>", "<name>PageTwo</name>",
+            "<name>ChildOne</name>"
+    );
+    assertResponseDoesNotContain("SymPage");
 }
 
 public void testGetDataAsXml() throws Exception {
-  makePageWithContent(“TestPageOne”, “test page”);
+    makePageWithContent("TestPageOne", "test page");
 
-  submitRequest(“TestPageOne”, “type:data”);
+    submitRequest("TestPageOne", "type:data");
 
-  assertResponseIsXML();
-  assertResponseContains(“test page”, “<Test”);
+    assertResponseIsXML();
+    assertResponseContains("test page", "<Test");
 }
 ```
 
@@ -296,13 +294,13 @@ Listing 9-3 EnvironmentControllerTest.java
 ```java
 @Test
 public void turnOnLoTempAlarmAtThreashold() throws Exception {
-  hw.setTemp(WAY_TOO_COLD);
-  controller.tic();
-  assertTrue(hw.heaterState());
-  assertTrue(hw.blowerState());
-  assertFalse(hw.coolerState());
-  assertFalse(hw.hiTempAlarm());
-  assertTrue(hw.loTempAlarm());
+    hw.setTemp(WAY_TOO_COLD);
+    controller.tic();
+    assertTrue(hw.heaterState());
+    assertTrue(hw.blowerState());
+    assertFalse(hw.coolerState());
+    assertFalse(hw.hiTempAlarm());
+    assertTrue(hw.loTempAlarm());
 }
 ```
 
@@ -325,8 +323,8 @@ Listing 9-4 EnvironmentControllerTest.java (refactored)
 ```java
 @Test
 public void turnOnLoTempAlarmAtThreshold() throws Exception {
-  wayTooCold();
-  assertEquals(“HBchL”, hw.getState());
+    wayTooCold();
+    assertEquals("HBchL", hw.getState());
 }
 ```
 
@@ -347,25 +345,26 @@ Listing 9-5 EnvironmentControllerTest.java (bigger selection)
 ```java
 @Test
 public void turnOnCoolerAndBlowerIfTooHot() throws Exception {
-  tooHot();
-  assertEquals(“hBChl”, hw.getState());
+    tooHot();
+    assertEquals("hBChl", hw.getState());
 }
 
 @Test
 public void turnOnHeaterAndBlowerIfTooCold() throws Exception {
-  tooCold();
-  assertEquals(“HBchl”, hw.getState());
+    tooCold();
+    assertEquals("HBchl", hw.getState());
 }
 
 @Test
 public void turnOnHiTempAlarmAtThreshold() throws Exception {
-  wayTooHot();
-  assertEquals(“hBCHl”, hw.getState());
+    wayTooHot();
+    assertEquals("hBCHl", hw.getState());
 }
+
 @Test
 public void turnOnLoTempAlarmAtThreshold() throws Exception {
-  wayTooCold();
-  assertEquals(“HBchL”, hw.getState());
+    wayTooCold();
+    assertEquals("HBchL", hw.getState());
 }
 ```
 
@@ -379,13 +378,13 @@ Listing 9-6 MockControlHardware.java
 
 ```java
 public String getState() {
-  String state = ””;
-  state += heater ? “H” : “h”;
-  state += blower ? “B” : “b”;
-  state += cooler ? “C” : “c”;
-  state += hiTempAlarm ? “H” : “h”;
-  state += loTempAlarm ? “L” : “l”;
-  return state;
+    String state = "";
+    state += heater ? "H" : "h";
+    state += blower ? "B" : "b";
+    state += cooler ? "C" : "c";
+    state += hiTempAlarm ? "H" : "h";
+    state += loTempAlarm ? "L" : "l";
+    return state;
 }
 ```
 
@@ -415,20 +414,19 @@ Listing 9-7 SerializedPageResponderTest.java (Single Assert)
 
 ```java
 public void testGetPageHierarchyAsXml() throws Exception {
-    givenPages(“PageOne”, “PageOne.ChildOne”, “PageTwo”);
+    givenPages("PageOne", "PageOne.ChildOne", "PageTwo");
 
-    whenRequestIsIssued(“root”, “type:pages”);
+    whenRequestIsIssued("root", "type:pages");
 
     thenResponseShouldBeXML();
 }
+
 public void testGetPageHierarchyHasRightTags() throws Exception {
-    givenPages(“PageOne”, “PageOne.ChildOne”, “PageTwo”);
+    givenPages("PageOne", "PageOne.ChildOne", "PageTwo");
 
-    whenRequestIsIssued(“root”, “type:pages”);
+    whenRequestIsIssued("root", "type:pages");
 
-    thenResponseShouldContain(
-      “<name>PageOne</name>”, “<name>PageTwo</name>”, “<name>ChildOne</name>”
-    );
+    thenResponseShouldContain("<name>PageOne</name>", "<name>PageTwo</name>", "<name>ChildOne</name>");
 }
 ```
 
@@ -462,8 +460,8 @@ Listing 9-8
 
 ```java
 /**
-* Miscellaneous tests for the addMonths() method.
-*/
+ * Miscellaneous tests for the addMonths() method.
+ */
 public void testAddMonths() {
     SerialDate d1 = SerialDate.createInstance(31, 5, 2004);
 
@@ -481,7 +479,6 @@ public void testAddMonths() {
     assertEquals(30, d4.getDayOfMonth());
     assertEquals(7, d4.getMonth());
     assertEquals(2004, d4.getYYYY());
-
 }
 ```
 

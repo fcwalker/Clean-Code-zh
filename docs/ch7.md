@@ -28,26 +28,26 @@ Listing 7-1 DeviceController.java
 
 ```java
 public class DeviceController {
-  …
-  public void sendShutDown() {
-    DeviceHandle handle = getHandle(DEV1);
-    // Check the state of the device
-    if (handle != DeviceHandle.INVALID) {
-      // Save the device status to the record field
-      retrieveDeviceRecord(handle);
-      // If not suspended, shut down
-      if (record.getStatus() != DEVICE_SUSPENDED) {
-        pauseDevice(handle);
-        clearDeviceWorkQueue(handle);
-        closeDevice(handle);
-      } else {
-        logger.log("Device suspended.  Unable to shut down");
-      }
-    } else {
-      logger.log("Invalid handle for: " + DEV1.toString());
+    …
+    public void sendShutDown() {
+        DeviceHandle handle = getHandle(DEV1);
+        // Check the state of the device
+        if (handle != DeviceHandle.INVALID) {
+            // Save the device status to the record field
+            retrieveDeviceRecord(handle);
+            // If not suspended, shut down
+            if (record.getStatus() != DEVICE_SUSPENDED) {
+                pauseDevice(handle);
+                clearDeviceWorkQueue(handle);
+                closeDevice(handle);
+            } else {
+                logger.log("Device suspended.  Unable to shut down");
+            }
+        } else {
+            logger.log("Invalid handle for: " + DEV1.toString());
+        }
     }
-  }
-  …
+    …
 }
 ```
 
@@ -65,32 +65,30 @@ Listing 7-2 DeviceController.java (with exceptions)
 
 ```java
 public class DeviceController {
-  …
-
-  public void sendShutDown() {
-    try {
-      tryToShutDown();
-    } catch (DeviceShutDownError e) {
-      logger.log(e);
+    …
+    public void sendShutDown() {
+        try {
+            tryToShutDown();
+        } catch (DeviceShutDownError e) {
+            logger.log(e);
+        }
     }
-}
 
-private void tryToShutDown() throws DeviceShutDownError {
-  DeviceHandle handle = getHandle(DEV1);
-  DeviceRecord record = retrieveDeviceRecord(handle);
+    private void tryToShutDown() throws DeviceShutDownError {
+        DeviceHandle handle = getHandle(DEV1);
+        DeviceRecord record = retrieveDeviceRecord(handle);
 
-  pauseDevice(handle);
-  clearDeviceWorkQueue(handle);
-  closeDevice(handle);
-}
+        pauseDevice(handle);
+        clearDeviceWorkQueue(handle);
+        closeDevice(handle);
+    }
 
-  private DeviceHandle getHandle(DeviceID id) {
-  …
-  throw new DeviceShutDownError(“Invalid handle for: ” + id.toString());
-  …
-}
-
-…
+    private DeviceHandle getHandle(DeviceID id) {
+        …
+        throw new DeviceShutDownError("Invalid handle for: " + id.toString());
+        …
+    }
+    …
 }
 ```
 
@@ -119,7 +117,7 @@ We start with a unit test that shows that we’ll get an exception when the file
 ```java
 @Test(expected = StorageException.class)
 public void retrieveSectionShouldThrowOnInvalidFileName() {
-  sectionStore.retrieveSection(“invalid - file”);
+    sectionStore.retrieveSection("invalid - file");
 }
 ```
 
@@ -129,8 +127,8 @@ The test drives us to create this stub:
 
 ```java
 public List<RecordedGrip> retrieveSection(String sectionName) {
-  // dummy return until we have a real implementation
-  return new ArrayList<RecordedGrip>();
+    // dummy return until we have a real implementation
+    return new ArrayList<RecordedGrip>();
 }
 ```
 
@@ -140,12 +138,12 @@ Our test fails because it doesn’t throw an exception. Next, we change our impl
 
 ```java
 public List<RecordedGrip> retrieveSection(String sectionName) {
-  try {
-    FileInputStream stream = new FileInputStream(sectionName)
-  } catch (Exception e) {
-    throw new StorageException(“retrieval error”, e);
-  }
-  return new ArrayList<RecordedGrip>();
+    try {
+        FileInputStream stream = new FileInputStream(sectionName);
+    } catch (Exception e) {
+        throw new StorageException("retrieval error", e);
+    }
+    return new ArrayList<RecordedGrip>();
 }
 ```
 
@@ -155,13 +153,13 @@ Our test passes now because we’ve caught the exception. At this point, we can 
 
 ```java
 public List<RecordedGrip> retrieveSection(String sectionName) {
-  try {
-    FileInputStream stream = new FileInputStream(sectionName);
-    stream.close();
-  } catch (FileNotFoundException e) {
-    throw new StorageException(“retrieval error”, e);
-  }
-  return new ArrayList<RecordedGrip>();
+    try {
+        FileInputStream stream = new FileInputStream(sectionName);
+        stream.close();
+    } catch (FileNotFoundException e) {
+        throw new StorageException("retrieval error", e);
+    }
+    return new ArrayList<RecordedGrip>();
 }
 ```
 
@@ -221,18 +219,18 @@ Let’s look at an example of poor exception classification. Here is a try-catch
 ACMEPort port = new ACMEPort(12);
 
 try {
-  port.open();
+    port.open();
 } catch (DeviceResponseException e) {
-  reportPortError(e);
-  logger.log(“Device response exception”, e);
+    reportPortError(e);
+    logger.log("Device response exception", e);
 } catch (ATM1212UnlockedException e) {
-  reportPortError(e);
-  logger.log(“Unlock exception”, e);
+    reportPortError(e);
+    logger.log("Unlock exception", e);
 } catch (GMXError e) {
-  reportPortError(e);
-  logger.log(“Device response exception”);
+    reportPortError(e);
+    logger.log("Device response exception");
 } finally {
-  …
+    …
 }
 ```
 
@@ -247,12 +245,12 @@ In this case, because we know that the work that we are doing is roughly the sam
 ```java
 LocalPort port = new LocalPort(12);
 try {
-  port.open();
+    port.open();
 } catch (PortDeviceFailure e) {
-  reportError(e);
-  logger.log(e.getMessage(), e);
+    reportError(e);
+    logger.log(e.getMessage(), e);
 } finally {
-  …
+    …
 }
 ```
 
@@ -262,24 +260,24 @@ Our LocalPort class is just a simple wrapper that catches and translates excepti
 
 ```java
 public class LocalPort {
-  private ACMEPort innerPort;
+    private ACMEPort innerPort;
 
-  public LocalPort(int portNumber) {
-    innerPort = new ACMEPort(portNumber);
-  }
-
-  public void open() {
-    try {
-      innerPort.open();
-    } catch (DeviceResponseException e) {
-      throw new PortDeviceFailure(e);
-    } catch (ATM1212UnlockedException e) {
-      throw new PortDeviceFailure(e);
-    } catch (GMXError e) {
-      throw new PortDeviceFailure(e);
+    public LocalPort(int portNumber) {
+        innerPort = new ACMEPort(portNumber);
     }
-  }
-  …
+
+    public void open() {
+        try {
+            innerPort.open();
+        } catch (DeviceResponseException e) {
+            throw new PortDeviceFailure(e);
+        } catch (ATM1212UnlockedException e) {
+            throw new PortDeviceFailure(e);
+        } catch (GMXError e) {
+            throw new PortDeviceFailure(e);
+        }
+    }
+    …
 }
 ```
 
@@ -309,10 +307,10 @@ Let’s take a look at an example. Here is some awkward code that sums expenses 
 
 ```java
 try {
-  MealExpenses expenses = expenseReportDAO.getMeals(employee.getID());
-  m_total += expenses.getTotal();
-} catch(MealExpensesNotFound e) {
-  m_total += getMealPerDiem();
+    MealExpenses expenses = expenseReportDAO.getMeals(employee.getID());
+    m_total += expenses.getTotal();
+} catch (MealExpensesNotFound e) {
+    m_total += getMealPerDiem();
 }
 ```
 
@@ -331,9 +329,9 @@ Can we make the code that simple? It turns out that we can. We can change the Ex
 
 ```java
 public class PerDiemMealExpenses implements MealExpenses {
-  public int getTotal() {
-    // return the per diem default
-  }
+    public int getTotal() {
+      // return the per diem default
+    }
 }
 ```
 
@@ -349,15 +347,15 @@ I think that any discussion about error handling should include mention of the t
 
 ```java
 public void registerItem(Item item) {
-  if (item != null) {
-    ItemRegistry registry = peristentStore.getItemRegistry();
-    if (registry != null) {
-      Item existing = registry.getItem(item.getID());
-      if (existing.getBillingPeriod().hasRetailOwner()) {
-        existing.register(item);
-      }
+    if (item != null) {
+        ItemRegistry registry = peristentStore.getItemRegistry();
+        if (registry != null) {
+            Item existing = registry.getItem(item.getID());
+            if (existing.getBillingPeriod().hasRetailOwner()) {
+                existing.register(item);
+            }
+        }
     }
-  }
 }
 ```
 
@@ -380,9 +378,9 @@ In many cases, special case objects are an easy remedy. Imagine that you have co
 ```java
 List<Employee> employees = getEmployees();
 if (employees != null) {
-  for(Employee e : employees) {
-    totalPay += e.getPay();
-  }
+    for (Employee e : employees) {
+        totalPay += e.getPay();
+    }
 }
 ```
 
@@ -392,8 +390,8 @@ Right now, getEmployees can return null, but does it have to? If we change getEm
 
 ```java
 List<Employee> employees = getEmployees();
-for(Employee e : employees) {
-  totalPay += e.getPay();
+for (Employee e : employees) {
+    totalPay += e.getPay();
 }
 ```
 
@@ -403,7 +401,7 @@ Fortunately, Java has Collections.emptyList(), and it returns a predefined immut
 
 ```java
 public List<Employee> getEmployees() {
-  if( .. there are no employees .. )
+    if ( .. there are no employees .. )
     return Collections.emptyList();
 }
 ```
@@ -423,12 +421,11 @@ Let’s look at an example to see why. Here is a simple method which calculates 
 > 举例说明原因。用下面这个简单的方法计算两点的投射：
 
 ```java
-public class MetricsCalculator
-{
-  public double xProjection(Point p1, Point p2) {
-    return (p2.x – p1.x) * 1.5;
-  }
-  …
+public class MetricsCalculator {
+    public double xProjection(Point p1, Point p2) {
+        return (p2.x –p1.x) *1.5;
+    }
+    …
 }
 ```
 
@@ -449,15 +446,14 @@ How can we fix it? We could create a new exception type and throw it:
 > 如何修正？可以创建一个新异常类型并抛出：
 
 ```java
-public class MetricsCalculator
-{
-public double xProjection(Point p1, Point p2) {
-  if (p1 == null || p2 == null) {
-      throw InvalidArgumentException(
-        “Invalid argument for MetricsCalculator.xProjection”);
-  }
-  return (p2.x – p1.x) * 1.5;
-}
+public class MetricsCalculator {
+    public double xProjection(Point p1, Point p2) {
+        if (p1 == null || p2 == null) {
+            throw InvalidArgumentException(
+                    "Invalid argument for MetricsCalculator.xProjection");
+        }
+        return (p2.x –p1.x) *1.5;
+    }
 }
 ```
 
@@ -470,13 +466,12 @@ There is another alternative. We could use a set of assertions:
 > 还有替代方案。可以使用一组断言
 
 ```java
-public class MetricsCalculator
-{
-  public double xProjection(Point p1, Point p2) {
-    assert p1 != null : “p1 should not be null”;
-    assert p2 != null : “p2 should not be null”;
-    return (p2.x – p1.x) * 1.5;
-  }
+public class MetricsCalculator {
+    public double xProjection(Point p1, Point p2) {
+        assert p1 != null : "p1 should not be null";
+        assert p2 != null : "p2 should not be null";
+        return (p2.x –p1.x) *1.5;
+    }
 }
 ```
 

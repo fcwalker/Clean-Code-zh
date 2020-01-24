@@ -86,24 +86,23 @@ package fitnesse.wikitext.widgets;
 import java.util.regex.*;
 
 public class BoldWidget extends ParentWidget {
-  public static final String REGEXP = “’’’.+?’’’”;
-  private static final Pattern pattern = Pattern.compile(“’’’(.+?)’’’”,
-    Pattern.MULTILINE + Pattern.DOTALL
-  );
+    public static final String REGEXP = "’’’.+?’’’";
+    private static final Pattern pattern = Pattern.compile("’’’(.+?)’’’",
+            Pattern.MULTILINE + Pattern.DOTALL
+    );
 
-  public BoldWidget(ParentWidget parent, String text) throws Exception {
-    super(parent);
-    Matcher match = pattern.matcher(text);
-    match.find();
-    addChildWidgets(match.group(1));
-  }
+    public BoldWidget(ParentWidget parent, String text) throws Exception {
+        super(parent);
+        Matcher match = pattern.matcher(text);
+        match.find();
+        addChildWidgets(match.group(1));
+    }
 
-  public String render() throws Exception {
-    StringBuffer html = new StringBuffer(“<b>”);
-    html.append(childHtml()).append(“</b>”);
-    return html.toString();
-  }
-
+    public String render() throws Exception {
+        StringBuffer html = new StringBuffer("<b>");
+        html.append(childHtml()).append("</b>");
+        return html.toString();
+    }
 }
 ```
 
@@ -117,21 +116,26 @@ Listing 5-2 BoldWidget.java
 
 ```java
 package fitnesse.wikitext.widgets;
+
 import java.util.regex.*;
+
 public class BoldWidget extends ParentWidget {
-  public static final String REGEXP = “’’’.+?’’’”;
-  private static final Pattern pattern = Pattern.compile(“’’’(.+?)’’’”,
-    Pattern.MULTILINE + Pattern.DOTALL);
-  public BoldWidget(ParentWidget parent, String text) throws Exception {
-    super(parent);
-    Matcher match = pattern.matcher(text);
-    match.find();
-    addChildWidgets(match.group(1));}
-  public String render() throws Exception {
-    StringBuffer html = new StringBuffer(“<b>”);
-    html.append(childHtml()).append(“</b>”);
-    return html.toString();
-  }
+    public static final String REGEXP = "’’’.+?’’’";
+    private static final Pattern pattern = Pattern.compile("’’’(.+?)’’’",
+            Pattern.MULTILINE + Pattern.DOTALL);
+
+    public BoldWidget(ParentWidget parent, String text) throws Exception {
+        super(parent);
+        Matcher match = pattern.matcher(text);
+        match.find();
+        addChildWidgets(match.group(1));
+    }
+
+    public String render() throws Exception {
+        StringBuffer html = new StringBuffer("<b>");
+        html.append(childHtml()).append("</b>");
+        return html.toString();
+    }
 }
 ```
 
@@ -151,20 +155,20 @@ Listing 5-3
 
 ```java
 public class ReporterConfig {
+    /**
+     * The class name of the reporter listener
+     */
+    private String m_className;
 
-  /**
-  * The class name of the reporter listener
-  */
-  private String m_className;
+    /**
+     * The properties of the reporter listener
+     */
+    private List<Property> m_properties = new ArrayList<Property>();
 
-  /**
-  * The properties of the reporter listener
-  */
-  private List<Property> m_properties = new ArrayList<Property>();
-
-  public void addProperty(Property property) {
-    m_properties.add(property);
-  }
+    public void addProperty(Property property) {
+        m_properties.add(property);
+    }
+}
 ```
 
 Listing 5-4 is much easier to read. It fits in an “eye-full,” or at least it does for me. I can look at it and see that this is a class with two variables and a method, without having to move my head or eyes much. The previous listing forces me to use much more eye and head motion to achieve the same level of comprehension.
@@ -176,13 +180,14 @@ Listing 5-4
 > 代码清单 5-4
 
 ```java
-   public class ReporterConfig {
-     private String m_className;
-     private List<Property> m_properties = new ArrayList<Property>();
+public class ReporterConfig {
+    private String m_className;
+    private List<Property> m_properties = new ArrayList<Property>();
 
-     public void addProperty(Property property) {
-       m_properties.add(property);
-     }
+    public void addProperty(Property property) {
+        m_properties.add(property);
+    }
+}
 ```
 
 ### 5.2.4 Vertical Distance 垂直距离
@@ -205,18 +210,18 @@ Variable Declarations. Variables should be declared as close to their usage as p
 
 ```java
 private static void readPreferences() {
-  InputStream is= null;
-  try {
-    is= new FileInputStream(getPreferencesFile());
-    setPreferences(new Properties(getPreferences()));
-    getPreferences().load(is);
-  } catch (IOException e) {
+    InputStream is = null;
     try {
-      if (is != null)
-        is.close();
-    } catch (IOException e1) {
+        is = new FileInputStream(getPreferencesFile());
+        setPreferences(new Properties(getPreferences()));
+        getPreferences().load(is);
+    } catch (IOException e) {
+        try {
+            if (is != null)
+                is.close();
+        } catch (IOException e1) {
+        }
     }
-  }
 }
 ```
 
@@ -225,12 +230,12 @@ Control variables for loops should usually be declared within the loop statement
 > 对于那些关系密切、放置于同一源文件中的概念，它们之间的区隔应该成为对相互的易懂度有多重要的衡量标准。应避免迫使读者在源文件和类中跳来跳去。
 
 ```java
-   public int countTestCases() {
-     int count= 0;
-     for (Test each : tests)
-       count += each.countTestCases();
-     return count;
-   }
+public int countTestCases() {
+    int count = 0;
+    for (Test each : tests)
+        count += each.countTestCases();
+    return count;
+}
 ```
 
 In rare cases a variable might be declared at the top of a block or just before a loop in a long-ish function. You can see such a variable in this snippet from the midst of a very long function in TestNG.
@@ -240,20 +245,20 @@ In rare cases a variable might be declared at the top of a block or just before 
 ```java
 …
 for (XmlTest test : m_suite.getTests()) {
-      TestRunner tr = m_runnerFactory.newTestRunner(this, test);
-      tr.addListener(m_textReporter);
-      m_testRunners.add(tr);
+    TestRunner tr = m_runnerFactory.newTestRunner(this, test);
+    tr.addListener(m_textReporter);
+    m_testRunners.add(tr);
 
     invoker = tr.getInvoker();
 
     for (ITestNGMethod m : tr.getBeforeSuiteMethods()) {
-      beforeSuiteMethods.put(m.getMethod(), m);
+        beforeSuiteMethods.put(m.getMethod(), m);
     }
 
     for (ITestNGMethod m : tr.getAfterSuiteMethods()) {
-      afterSuiteMethods.put(m.getMethod(), m);
+        afterSuiteMethods.put(m.getMethod(), m);
     }
-  }
+}
 …
 ```
 
@@ -271,40 +276,40 @@ Consider, for example, the strange case of the TestSuite class in JUnit 4.3.1. I
 
 ```java
 public class TestSuite implements Test {
-  static public Test createTest(Class<? extends TestCase> theClass,
-                              String name)  {
-    …
-  }
+    static public Test createTest(Class<? extends TestCase> theClass,
+                                  String name) {
+        …
+    }
 
-  public static Constructor<? extends TestCase>
-  getTestConstructor(Class<? extends TestCase> theClass)
-  throws NoSuchMethodException {
-    …
-  }
+    public static Constructor<? extends TestCase>
+    getTestConstructor(Class<? extends TestCase> theClass)
+            throws NoSuchMethodException {
+        …
+    }
 
-  public static Test warning(final String message) {
-    …
-  }
+    public static Test warning(final String message) {
+        …
+    }
 
-  private static String exceptionToString(Throwable t) {
-    …
-  }
+    private static String exceptionToString(Throwable t) {
+        …
+    }
 
-  private String fName;
+    private String fName;
 
-  private Vector<Test> fTests= new Vector<Test>(10);
+    private Vector<Test> fTests = new Vector<Test>(10);
 
-  public TestSuite() {
-  }
+    public TestSuite() {
+    }
 
-  public TestSuite(final Class<? extends TestCase> theClass) {
-    …
-  }
+    public TestSuite(final Class<? extends TestCase> theClass) {
+        …
+    }
 
-  public TestSuite(Class<? extends TestCase>  theClass, String name) {
-    …
-  }
-  … … … … …
+    public TestSuite(Class<? extends TestCase> theClass, String name) {
+        …
+    }
+    … … … … …
 }
 ```
 
@@ -318,57 +323,56 @@ Listing 5-5 WikiPageResponder.java
 
 ```java
 public class WikiPageResponder implements SecureResponder {
-  protected WikiPage page;
-  protected PageData pageData;
-  protected String pageTitle;
-  protected Request request;
-  protected PageCrawler crawler;
+    protected WikiPage page;
+    protected PageData pageData;
+    protected String pageTitle;
+    protected Request request;
+    protected PageCrawler crawler;
 
-  public Response makeResponse(FitNesseContext context, Request request)
-    throws Exception {
-    String pageName = getPageNameOrDefault(request, “FrontPage”);
-    loadPage(pageName, context);
-    if (page == null)
-      return notFoundResponse(context, request);
-    else
-      return makePageResponse(context);
-  }
+    public Response makeResponse(FitNesseContext context, Request request)
+            throws Exception {
+        String pageName = getPageNameOrDefault(request, “FrontPage”);
+        loadPage(pageName, context);
+        if (page == null)
+            return notFoundResponse(context, request);
+        else
+            return makePageResponse(context);
+    }
 
-  private String getPageNameOrDefault(Request request, String defaultPageName)
-  {
-    String pageName = request.getResource();
-    if (StringUtil.isBlank(pageName))
-      pageName = defaultPageName;
+    private String getPageNameOrDefault(Request request, String defaultPageName) {
+        String pageName = request.getResource();
+        if (StringUtil.isBlank(pageName))
+            pageName = defaultPageName;
 
-    return pageName;
-  }
+        return pageName;
+    }
 
-  protected void loadPage(String resource, FitNesseContext context)
-    throws Exception {
-    WikiPagePath path = PathParser.parse(resource);
-    crawler = context.root.getPageCrawler();
-    crawler.setDeadEndStrategy(new VirtualEnabledPageCrawler());
-    page = crawler.getPage(context.root, path);
-    if (page != null)
-      pageData = page.getData();
-  }
+    protected void loadPage(String resource, FitNesseContext context)
+            throws Exception {
+        WikiPagePath path = PathParser.parse(resource);
+        crawler = context.root.getPageCrawler();
+        crawler.setDeadEndStrategy(new VirtualEnabledPageCrawler());
+        page = crawler.getPage(context.root, path);
+        if (page != null)
+            pageData = page.getData();
+    }
 
-  private Response notFoundResponse(FitNesseContext context, Request request)
-    throws Exception {
-    return new NotFoundResponder().makeResponse(context, request);
-  }
+    private Response notFoundResponse(FitNesseContext context, Request request)
+            throws Exception {
+        return new NotFoundResponder().makeResponse(context, request);
+    }
 
-  private SimpleResponse makePageResponse(FitNesseContext context)
-    throws Exception {
-    pageTitle = PathParser.render(crawler.getFullPath(page));
-    String html = makeHtml(context);
+    private SimpleResponse makePageResponse(FitNesseContext context)
+            throws Exception {
+        pageTitle = PathParser.render(crawler.getFullPath(page));
+        String html = makeHtml(context);
 
-    SimpleResponse response = new SimpleResponse();
-    response.setMaxAge(0);
-    response.setContent(html);
-    return response;
-  }
-…
+        SimpleResponse response = new SimpleResponse();
+        response.setMaxAge(0);
+        response.setContent(html);
+        return response;
+    }
+}
 ```
 
 As an aside, this snippet provides a nice example of keeping constants at the appropriate level [G35]. The “FrontPage” constant could have been buried in the getPageNameOrDefault function, but that would have hidden a well-known and expected constant in an inappropriately low-level function. It was better to pass that constant down from the place where it makes sense to know it to the place that actually uses it.
@@ -387,23 +391,23 @@ As we have seen, this affinity might be based on a direct dependence, such as on
 
 ```java
 public class Assert {
-  static public void assertTrue(String message, boolean condition) {
-    if (!condition)
-      fail(message);
-  }
+    static public void assertTrue(String message, boolean condition) {
+        if (!condition)
+            fail(message);
+    }
 
-  static public void assertTrue(boolean condition) {
-    assertTrue(null, condition);
-  }
+    static public void assertTrue(boolean condition) {
+        assertTrue(null, condition);
+    }
 
-  static public void assertFalse(String message, boolean condition) {
-    assertTrue(message, !condition);
-  }
+    static public void assertFalse(String message, boolean condition) {
+        assertTrue(message, !condition);
+    }
 
-  static public void assertFalse(boolean condition) {
-    assertFalse(null, condition);
-  }
-…
+    static public void assertFalse(boolean condition) {
+        assertFalse(null, condition);
+    }
+}
 ```
 
 These functions have a strong conceptual affinity because they share a common naming scheme and perform variations of the same basic task. The fact that they call each other is secondary. Even if they didn’t, they would still want to be close together.
@@ -448,11 +452,11 @@ We use horizontal white space to associate things that are strongly related and 
 
 ```java
 private void measureLine(String line) {
-  lineCount++;
-  int lineSize = line.length();
-  totalChars += lineSize;
-  lineWidthHistogram.addLine(lineSize, lineCount);
-  recordWidestLine(lineSize);
+    lineCount++;
+    int lineSize = line.length();
+    totalChars += lineSize;
+    lineWidthHistogram.addLine(lineSize, lineCount);
+    recordWidestLine(lineSize);
 }
 ```
 
@@ -470,19 +474,19 @@ Another use for white space is to accentuate the precedence of operators.
 
 ```java
 public class Quadratic {
-  public static double root1(double a, double b, double c) {
-    double determinant = determinant(a, b, c);
-    return (-b + Math.sqrt(determinant)) / (2*a);
-  }
+    public static double root1(double a, double b, double c) {
+        double determinant = determinant(a, b, c);
+        return (-b + Math.sqrt(determinant)) / (2 * a);
+    }
 
-  public static double root2(int a, int b, int c) {
-    double determinant = determinant(a, b, c);
-    return (-b - Math.sqrt(determinant)) / (2*a);
-  }
+    public static double root2(int a, int b, int c) {
+        double determinant = determinant(a, b, c);
+        return (-b - Math.sqrt(determinant)) / (2 * a);
+    }
 
-  private static double determinant(double a, double b, double c) {
-    return b*b - 4*a*c;
-  }
+    private static double determinant(double a, double b, double c) {
+        return b * b - 4 * a * c;
+    }
 }
 ```
 
@@ -536,28 +540,27 @@ So, in the end, I don’t do this kind of thing anymore. Nowadays I prefer unali
 > 所以，我最终放弃了这种做法。如今，我更喜欢用不对齐的声明和赋值，如下所示，因为它们指出了重点。如果有较长的列表需要做对齐处理，那问题就是在列表的长度上而不是对齐上。下例 FitNesseExpediter 类中声明列表的长度说明该类应该被拆分了。
 
 ```java
-public class FitNesseExpediter implements ResponseSender
-{
-  private Socket socket;
-  private InputStream input;
-  private OutputStream output;
-  private Request request;
+public class FitNesseExpediter implements ResponseSender {
+    private Socket socket;
+    private InputStream input;
+    private OutputStream output;
+    private Request request;
 
-  private Response response;
-  private FitNesseContext context;
-  protected long requestParsingTimeLimit;
-  private long requestProgress;
-  private long requestParsingDeadline;
-  private boolean hasError;
+    private Response response;
+    private FitNesseContext context;
+    protected long requestParsingTimeLimit;
+    private long requestProgress;
+    private long requestParsingDeadline;
+    private boolean hasError;
 
-  public FitNesseExpediter(Socket s, FitNesseContext context) throws Exception
-  {
-    this.context = context;
-    socket = s;
-    input = s.getInputStream();
-    output = s.getOutputStream();
-    requestParsingTimeLimit = 10000;
-  }
+    public FitNesseExpediter(Socket s, FitNesseContext context) throws Exception {
+        this.context = context;
+        socket = s;
+        input = s.getInputStream();
+        output = s.getOutputStream();
+        requestParsingTimeLimit = 10000;
+    }
+}
 ```
 
 ### 5.3.3 Indentation 缩进
@@ -589,29 +592,27 @@ catch(Exception e) { e.printStackTrace(); } } }
 
 -----
 
-
 public class FitNesseServer implements SocketServer {
-  private FitNesseContext context;
+    private FitNesseContext context;
 
 
-public FitNesseServer(FitNesseContext context) {
-  this.context = context;
-}
+    public FitNesseServer(FitNesseContext context) {
+        this.context = context;
+    }
 
-public void serve(Socket s) {
-  serve(s, 10000);
-}
+    public void serve(Socket s) {
+        serve(s, 10000);
+    }
 
-public void serve(Socket s, long requestTimeout) {
-  try {
-    FitNesseExpediter sender = new FitNesseExpediter(s, context);
-    sender.setRequestParsingTimeLimit(requestTimeout);
-    sender.start();
-  }
-  catch (Exception e) {
-    e.printStackTrace();
-  }
-}
+    public void serve(Socket s, long requestTimeout) {
+        try {
+            FitNesseExpediter sender = new FitNesseExpediter(s, context);
+            sender.setRequestParsingTimeLimit(requestTimeout);
+            sender.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 ```
 
@@ -624,12 +625,16 @@ Breaking Indentation. It is sometimes tempting to break the indentation rule for
 > 违反缩进规则。有时，会忍不住想要在短小的 if 语句、while 循环或小函数中违反缩进规则。一旦这么做了，我多数时候还是会回头加上缩进。这样就避免了出现以下这种范围层级坍塌到一行的情况：
 
 ```java
-public class CommentWidget extends TextWidget
-{
-  public static final String REGEXP = “^#[^\r\n]*(?:(?:\r\n)|\n|\r)?”;
+public class CommentWidget extends TextWidget {
+    public static final String REGEXP = "^#[^\r\n]*(?:(?:\r\n)|\n|\r)?";
 
-  public CommentWidget(ParentWidget parent, String text){super(parent, text);}
-  public String render() throws Exception {return “”; }
+    public CommentWidget(ParentWidget parent, String text) {
+        super(parent, text);
+    }
+
+    public String render() throws Exception {
+        return "";
+    }
 }
 ```
 
@@ -639,15 +644,15 @@ I prefer to expand and indent the scopes instead, like this:
 
 ```java
 public class CommentWidget extends TextWidget {
-  public static final String REGEXP = “^#[^\r\n]*(?:(?:\r\n)|\n|\r)?”
+    public static final String REGEXP = "^#[^\r\n]*(?:(?:\r\n)|\n|\r)?";
 
-  public CommentWidget(ParentWidget parent, String text) {
-    super(parent, text);
-  }
+    public CommentWidget(ParentWidget parent, String text) {
+        super(parent, text);
+    }
 
-  public String render() throws Exception {
-    return “”;
-  }
+    public String render() throws Exception {
+        return "";
+    }
 }
 ```
 
@@ -658,7 +663,7 @@ Sometimes the body of a while or for statement is a dummy, as shown below. I don
 > 有时，while 或 for 语句的语句体为空，如下所示。我不喜欢这种结构，尽量不使用。如果无法避免，就确保空范围体的缩进，用括号包围起来。我无法告诉你，我曾经多少次被静静安坐在与 while 循环语句同一行末尾的分号所欺骗。除非你把那个分号放到另一行再加以缩进，否则就很难看到它。
 
 ```java
-while (dis.read(buf, 0, readBufferSize) != -1)     ;
+while (dis.read(buf, 0, readBufferSize) != -1) ;
 ```
 
 ## 5.4 TEAM RULES 团队规则
@@ -693,37 +698,36 @@ Listing 5-6 CodeAnalyzer.java
 
 ```java
 public int getWidestLineNumber() {
-  return widestLineNumber;
+    return widestLineNumber;
 }
 
 public LineWidthHistogram getLineWidthHistogram() {
-  return lineWidthHistogram;
+    return lineWidthHistogram;
 }
 
 public double getMeanLineWidth() {
-  return (double)totalChars/lineCount;
+    return (double) totalChars / lineCount;
 }
 
 public int getMedianLineWidth() {
-  Integer[] sortedWidths = getSortedWidths();
-  int cumulativeLineCount = 0;
-  for (int width : sortedWidths) {
-    cumulativeLineCount += lineCountForWidth(width);
-    if (cumulativeLineCount > lineCount/2)
-      return width;
-  }
-  throw new Error(“Cannot get here”);
+    Integer[] sortedWidths = getSortedWidths();
+    int cumulativeLineCount = 0;
+    for (int width : sortedWidths) {
+        cumulativeLineCount += lineCountForWidth(width);
+        if (cumulativeLineCount > lineCount / 2)
+            return width;
+    }
+    throw new Error("Cannot get here");
 }
 
 private int lineCountForWidth(int width) {
-  return lineWidthHistogram.getLinesforWidth(width).size();
+    return lineWidthHistogram.getLinesforWidth(width).size();
 }
 
 private Integer[] getSortedWidths() {
-  Set<Integer> widths = lineWidthHistogram.getWidths();
-  Integer[] sortedWidths = (widths.toArray(new Integer[0]));
-  Arrays.sort(sortedWidths);
-  return sortedWidths;
-}
+    Set<Integer> widths = lineWidthHistogram.getWidths();
+    Integer[] sortedWidths = (widths.toArray(new Integer[0]));
+    Arrays.sort(sortedWidths);
+    return sortedWidths;
 }
 ```

@@ -18,8 +18,8 @@ Listing 6-1 Concrete Point
 
 ```java
 public class Point {
-  public double x;
-  public double y;
+    public double x;
+    public double y;
 }
 ```
 
@@ -29,12 +29,17 @@ Listing 6-2 Abstract Point
 
 ```java
 public interface Point {
-  double getX();
-  double getY();
-  void setCartesian(double x, double y);
-  double getR();
-  double getTheta();
-  void setPolar(double r, double theta);
+    double getX();
+
+    double getY();
+
+    void setCartesian(double x, double y);
+
+    double getR();
+
+    double getTheta();
+
+    void setPolar(double r, double theta);
 }
 ```
 
@@ -64,8 +69,9 @@ Listing 6-3 Concrete Vehicle
 
 ```java
 public interface Vehicle {
-  double getFuelTankCapacityInGallons();
-  double getGallonsOfGasoline();
+    double getFuelTankCapacityInGallons();
+
+    double getGallonsOfGasoline();
 }
 ```
 
@@ -75,7 +81,7 @@ Listing 6-4 Abstract Vehicle
 
 ```java
 public interface Vehicle {
-  double getPercentFuelRemaining();
+    double getPercentFuelRemaining();
 }
 ```
 
@@ -99,41 +105,37 @@ Listing 6-5 Procedural Shape
 
 ```java
 public class Square {
-  public Point topLeft;
-  public double side;
+    public Point topLeft;
+    public double side;
 }
 
 public class Rectangle {
-  public Point topLeft;
-  public double height;
-  public double width;
+    public Point topLeft;
+    public double height;
+    public double width;
 }
 
 public class Circle {
-  public Point center;
-  public double radius;
+    public Point center;
+    public double radius;
 }
 
 public class Geometry {
-  public final double PI = 3.141592653589793;
+    public final double PI = 3.141592653589793;
 
-  public double area(Object shape) throws NoSuchShapeException
-  {
-    if (shape instanceof Square) {
-      Square s = (Square)shape;
-      return s.side * s.side;
+    public double area(Object shape) throws NoSuchShapeException {
+        if (shape instanceof Square) {
+            Square s = (Square) shape;
+            return s.side * s.side;
+        } else if (shape instanceof Rectangle) {
+            Rectangle r = (Rectangle) shape;
+            return r.height * r.width;
+        } else if (shape instanceof Circle) {
+            Circle c = (Circle) shape;
+            return PI * c.radius * c.radius;
+        }
+        throw new NoSuchShapeException();
     }
-
-    else if (shape instanceof Rectangle) {
-      Rectangle r = (Rectangle)shape;
-      return r.height * r.width;
-    }
-    else if (shape instanceof Circle) {
-      Circle c = (Circle)shape;
-      return PI * c.radius * c.radius;
-    }
-    throw new NoSuchShapeException();
-  }
 }
 ```
 
@@ -153,31 +155,31 @@ Listing 6-6 Polymorphic Shapes
 
 ```java
 public class Square implements Shape {
-  private Point topLeft;
-  private double side;
+    private Point topLeft;
+    private double side;
 
-  public double area() {
-    return side*side;
-  }
+    public double area() {
+        return side * side;
+    }
 }
 
 public class Rectangle implements Shape {
-  private Point topLeft;
-  private double height;
-  private double width;
+    private Point topLeft;
+    private double height;
+    private double width;
 
-  public double area() {
-    return height * width;
-  }
+    public double area() {
+        return height * width;
+    }
 }
 
-  public class Circle implements Shape {
+public class Circle implements Shape {
     private Point center;
     private double radius;
     public final double PI = 3.141592653589793;
 
     public double area() {
-      return PI * radius * radius;
+        return PI * radius * radius;
     }
 }
 ```
@@ -319,7 +321,7 @@ If ctxt is an object, we should be telling it to do something; we should not be 
 > 如果 ctxt 是个对象，就应该要求它做点什么，不该要求它给出内部情形。那我们为何还要得到临时目录的绝对路径呢？我们要它做什么？来看看同一模块（许多行之后）的这段代码：
 
 ```java
-String outFile = outputDir + “/” + className.replace('.', '/') + “.class”;
+String outFile = outputDir + "/" + className.replace('.', '/') + ".class";
 FileOutputStream fout = new FileOutputStream(outFile);
 BufferedOutputStream bos = new BufferedOutputStream(fout);
 ```
@@ -356,40 +358,40 @@ Listing 6-7 address.java
 
 ```java
 public class Address {
-  private String street;
-  private String streetExtra;
-  private String city;
-  private String state;
-  private String zip;
+    private String street;
+    private String streetExtra;
+    private String city;
+    private String state;
+    private String zip;
 
-  public Address(String street, String streetExtra,
-                  String city, String state, String zip) {
-    this.street = street;
-    this.streetExtra = streetExtra;
-    this.city = city;
-    this.state = state;
-    this.zip = zip;
-  }
+    public Address(String street, String streetExtra,
+                   String city, String state, String zip) {
+        this.street = street;
+        this.streetExtra = streetExtra;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+    }
 
-  public String getStreet() {
-    return street;
-  }
+    public String getStreet() {
+        return street;
+    }
 
-  public String getStreetExtra() {
-    return streetExtra;
-  }
+    public String getStreetExtra() {
+        return streetExtra;
+    }
 
-  public String getCity() {
-    return city;
-  }
+    public String getCity() {
+        return city;
+    }
 
-  public String getState() {
-    return state;
-  }
+    public String getState() {
+        return state;
+    }
 
-  public String getZip() {
-    return zip;
-  }
+    public String getZip() {
+        return zip;
+    }
 }
 ```
 

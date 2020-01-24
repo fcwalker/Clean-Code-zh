@@ -35,13 +35,13 @@ Code changes and evolves. Chunks of it move from here to there. Those chunks bif
 ```java
 MockRequest request;
 private final String HTTP_DATE_REGEXP =
-  “[SMTWF][a-z]{2}\\,\\s[0-9]{2}\\s[JFMASOND][a-z]{2}\\s”+
-  “[0-9]{4}\\s[0-9]{2}\\:[0-9]{2}\\:[0-9]{2}\\sGMT”;
+        "[SMTWF][a-z]{2}\\,\\s[0-9]{2}\\s[JFMASOND][a-z]{2}\\s" +
+                "[0-9]{4}\\s[0-9]{2}\\:[0-9]{2}\\:[0-9]{2}\\sGMT";
 private Response response;
 private FitNesseContext context;
 private FileResponder responder;
 private Locale saveLocale;
-// Example: ”Tue, 02 Apr 2003 22:18:49 GMT”
+// Example: "Tue, 02 Apr 2003 22:18:49 GMT"
 ```
 
 Other instance variables that were probably added later were interposed between the HTTP_DATE_REGEXP constant and it’s explanatory comment.
@@ -141,7 +141,7 @@ Here’s a case that’s a bit better:
 ```java
 // format matched kk:mm:ss EEE, MMM dd, yyyy
 Pattern timeMatcher = Pattern.compile(
-  “\\d*:\\d*:\\d* \\w*, \\w* \\d*, \\d*”);
+        "\\d*:\\d*:\\d* \\w*, \\w* \\d*, \\d*");
 ```
 
 In this case the comment lets us know that the regular expression is intended to match a time and date that were formatted with the SimpleDateFormat.format function using the specified format string. Still, it might have been better, and clearer, if this code had been moved to a special class that converted the formats of dates and times. Then the comment would likely have been superfluous.
@@ -155,16 +155,14 @@ Sometimes a comment goes beyond just useful information about the implementation
 > 有时，注释不仅提供了有关实现的有用信息，而且还提供了某个决定后面的意图。在下例中，我们看到注释反映出来的一个有趣决定。在对比两个对象时，作者决定将他的类放置在比其他东西更高的位置。
 
 ```java
-public int compareTo(Object o)
-{
-  if(o instanceof WikiPagePath)
-  {
-    WikiPagePath p = (WikiPagePath) o;
-    String compressedName = StringUtil.join(names, “”);
-    String compressedArgumentName = StringUtil.join(p.names, “”);
-    return compressedName.compareTo(compressedArgumentName);
-  }
-  return 1; // we are greater because we are the right type.
+public int compareTo(Object o) {
+    if (o instanceof WikiPagePath) {
+        WikiPagePath p = (WikiPagePath) o;
+        String compressedName = StringUtil.join(names, "");
+        String compressedArgumentName = StringUtil.join(p.names, "");
+        return compressedName.compareTo(compressedArgumentName);
+    }
+    return 1; // we are greater because we are the right type.
 }
 ```
 
@@ -174,24 +172,24 @@ Here’s an even better example. You might not agree with the programmer’s sol
 
 ```java
 public void testConcurrentAddWidgets() throws Exception {
-  WidgetBuilder widgetBuilder =
-    new WidgetBuilder(new Class[]{BoldWidget.class});
-    String text = ”’’’bold text’’’”;
+    WidgetBuilder widgetBuilder =
+            new WidgetBuilder(new Class[]{BoldWidget.class});
+    String text = "’’’bold text’’’";
     ParentWidget parent =
-      new BoldWidget(new MockWidgetRoot(), ”’’’bold text’’’”);
+            new BoldWidget(new MockWidgetRoot(), "’’’bold text’’’");
     AtomicBoolean failFlag = new AtomicBoolean();
     failFlag.set(false);
 
     //This is our best attempt to get a race condition
     //by creating large number of threads.
     for (int i = 0; i < 25000; i++) {
-      WidgetBuilderThread widgetBuilderThread =
-        new WidgetBuilderThread(widgetBuilder, text, parent, failFlag);
-      Thread thread = new Thread(widgetBuilderThread);
-      thread.start();
+        WidgetBuilderThread widgetBuilderThread =
+                new WidgetBuilderThread(widgetBuilder, text, parent, failFlag);
+        Thread thread = new Thread(widgetBuilderThread);
+        thread.start();
     }
     assertEquals(false, failFlag.get());
-  }
+}
 ```
 
 ### 4.3.4 Clarification 阐释
@@ -201,24 +199,23 @@ Sometimes it is just helpful to translate the meaning of some obscure argument o
 > 有时，注释把某些晦涩难明的参数或返回值的意义翻译为某种可读形式，也会是有用的。通常，更好的方法是尽量让参数或返回值自身就足够清楚；但如果参数或返回值是某个标准库的一部分，或是你不能修改的代码，帮助阐释其含义的代码就会有用。
 
 ```java
-public void testCompareTo() throws Exception
-{
-  WikiPagePath a = PathParser.parse("PageA");
-  WikiPagePath ab = PathParser.parse("PageA.PageB");
-  WikiPagePath b = PathParser.parse("PageB");
-  WikiPagePath aa = PathParser.parse("PageA.PageA");
-  WikiPagePath bb = PathParser.parse("PageB.PageB");
-  WikiPagePath ba = PathParser.parse("PageB.PageA");
+public void testCompareTo() throws Exception {
+    WikiPagePath a = PathParser.parse("PageA");
+    WikiPagePath ab = PathParser.parse("PageA.PageB");
+    WikiPagePath b = PathParser.parse("PageB");
+    WikiPagePath aa = PathParser.parse("PageA.PageA");
+    WikiPagePath bb = PathParser.parse("PageB.PageB");
+    WikiPagePath ba = PathParser.parse("PageB.PageA");
 
-  assertTrue(a.compareTo(a) == 0);    // a == a
-  assertTrue(a.compareTo(b) != 0);    // a != b
-  assertTrue(ab.compareTo(ab) == 0);  // ab == ab
-  assertTrue(a.compareTo(b) == -1);   // a < b
-  assertTrue(aa.compareTo(ab) == -1); // aa < ab
-  assertTrue(ba.compareTo(bb) == -1); // ba < bb
-  assertTrue(b.compareTo(a) == 1);    // b > a
-  assertTrue(ab.compareTo(aa) == 1);  // ab > aa
-  assertTrue(bb.compareTo(ba) == 1);  // bb > ba
+    assertTrue(a.compareTo(a) == 0);    // a == a
+    assertTrue(a.compareTo(b) != 0);    // a != b
+    assertTrue(ab.compareTo(ab) == 0);  // ab == ab
+    assertTrue(a.compareTo(b) == -1);   // a < b
+    assertTrue(aa.compareTo(ab) == -1); // aa < ab
+    assertTrue(ba.compareTo(bb) == -1); // ba < bb
+    assertTrue(b.compareTo(a) == 1);    // b > a
+    assertTrue(ab.compareTo(aa) == 1);  // ab > aa
+    assertTrue(bb.compareTo(ba) == 1);  // bb > ba
 }
 ```
 
@@ -237,15 +234,14 @@ Sometimes it is useful to warn other programmers about certain consequences. For
 ```java
 // Don't run unless you
 // have some time to kill.
-public void _testWithReallyBigFile()
-{
-  writeLinesToFile(10000000);
+public void _testWithReallyBigFile() {
+    writeLinesToFile(10000000);
 
-  response.setBody(testFile);
-  response.readyToSend(this);
-  String responseString = output.toString();
-  assertSubString("Content-Length: 1000000000", responseString);
-  assertTrue(bytesSent > 1000000000);
+    response.setBody(testFile);
+    response.readyToSend(this);
+    String responseString = output.toString();
+    assertSubString("Content-Length: 1000000000", responseString);
+    assertTrue(bytesSent > 1000000000);
 }
 ```
 
@@ -258,14 +254,12 @@ Here’s another, more poignant example:
 > 这里有个更麻烦的例子：
 
 ```java
-public static
-  SimpleDateFormat makeStandardHttpDateFormat()
-{
-  //SimpleDateFormat is not thread safe,
-  //so we need to create each instance independently.
-  SimpleDateFormat df = new SimpleDateFormat(”EEE, dd MMM  yyyy HH:mm:ss z”);
-  df.setTimeZone(TimeZone.getTimeZone(”GMT”));
-  return df;
+public static SimpleDateFormat makeStandardHttpDateFormat() {
+    //SimpleDateFormat is not thread safe,
+    //so we need to create each instance independently.
+    SimpleDateFormat df = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
+    df.setTimeZone(TimeZone.getTimeZone("GMT"));
+    return df;
 }
 ```
 
@@ -282,9 +276,8 @@ It is sometimes reasonable to leave “To do” notes in the form of //TODO comm
 ```java
 //TODO-MdM these are not needed
 // We expect this to go away when we do the checkout model
-protected VersionInfo makeVersion() throws Exception
-{
-  return null;
+protected VersionInfo makeVersion() throws Exception {
+    return null;
 }
 ```
 
@@ -338,20 +331,16 @@ Here, for example, is a case I found in FitNesse, where a comment might indeed h
 > 例如，我在 FitNesse 中找到的这个例子，例中的注释大概确实有用。不过，作者太着急，或者没太花心思。他的喃喃自语变成了一个谜团。
 
 ```java
-public void loadProperties()
-{
-  try
-  {
-  String propertiesPath = propertiesLocation +
-    ”/” + PROPERTIES_FILE;
-  FileInputStream propertiesStream = new
-    FileInputStream(propertiesPath);
-  loadedProperties.load(propertiesStream);
-  }
-  catch(IOException e)
-  {
-    // No properties files means all defaults are loaded
-  }
+public void loadProperties() {
+    try {
+        String propertiesPath = propertiesLocation +
+                "/" + PROPERTIES_FILE;
+        FileInputStream propertiesStream = new
+                FileInputStream(propertiesPath);
+        loadedProperties.load(propertiesStream);
+    } catch (IOException e) {
+        // No properties files means all defaults are loaded
+    }
 }
 ```
 
@@ -374,18 +363,15 @@ Listing 4-1 waitForClose
 > 代码清单 4-1 waitForClose
 
 ```java
-// Utility method that returns when this.closed
-    is true. Throws an exception
+// Utility method that returns when this.closed is true. Throws an exception
 // if the timeout is reached.
 public synchronized void waitForClose(final long timeoutMillis)
-throws Exception
-{
-  if(!closed)
-  {
-      wait(timeoutMillis);
-      if(!closed)
-        throw new Exception("MockResponseSender could not be closed");
-  }
+        throws Exception {
+    if (!closed) {
+        wait(timeoutMillis);
+        if (!closed)
+            throw new Exception("MockResponseSender could not be closed");
+    }
 }
 ```
 
@@ -403,97 +389,98 @@ Listing 4-2 ContainerBase.java (Tomcat)
 
 ```java
 public abstract class ContainerBase
-  implements Container, Lifecycle, Pipeline,
-  MBeanRegistration, Serializable {
+        implements Container, Lifecycle, Pipeline,
+        MBeanRegistration, Serializable {
 
-  /**
-  * The processor delay for this component.
-  */
-  protected int backgroundProcessorDelay = -1;
-
-
-  /**
-  * The lifecycle event support for this component.
-  */
-  protected LifecycleSupport lifecycle =
-    new LifecycleSupport(this);
+    /**
+     * The processor delay for this component.
+     */
+    protected int backgroundProcessorDelay = -1;
 
 
-  /**
-  * The container event listeners for this Container.
-  */
-  protected ArrayList listeners = new ArrayList();
+    /**
+     * The lifecycle event support for this component.
+     */
+    protected LifecycleSupport lifecycle =
+            new LifecycleSupport(this);
 
 
-  /**
-  * The Loader implementation with which this Container is
-  * associated.
-  */
-  protected Loader loader = null;
+    /**
+     * The container event listeners for this Container.
+     */
+    protected ArrayList listeners = new ArrayList();
 
 
-  /**
-  * The Logger implementation with which this Container is
-  * associated.
-  */
-  protected Log logger = null;
+    /**
+     * The Loader implementation with which this Container is
+     * associated.
+     */
+    protected Loader loader = null;
 
 
-  /**
-  * Associated logger name.
-  */
-  protected String logName = null;
-
-  /**
-    * The Manager implementation with which this Container is
-    * associated.
-    */
-  protected Manager manager = null;
+    /**
+     * The Logger implementation with which this Container is
+     * associated.
+     */
+    protected Log logger = null;
 
 
-  /**
-  * The cluster with which this Container is associated.
-  */
-  protected Cluster cluster = null;
+    /**
+     * Associated logger name.
+     */
+    protected String logName = null;
+
+    /**
+     * The Manager implementation with which this Container is
+     * associated.
+     */
+    protected Manager manager = null;
 
 
-  /**
-  * The human-readable name of this Container.
-  */
-  protected String name = null;
+    /**
+     * The cluster with which this Container is associated.
+     */
+    protected Cluster cluster = null;
 
 
-  /**
-  * The parent Container to which this Container is a child.
-  */
-  protected Container parent = null;
+    /**
+     * The human-readable name of this Container.
+     */
+    protected String name = null;
 
 
-  /**
-  * The parent class loader to be configured when we install a
-  * Loader.
-  */
-  protected ClassLoader parentClassLoader = null;
+    /**
+     * The parent Container to which this Container is a child.
+     */
+    protected Container parent = null;
 
 
-  /**
-  * The Pipeline object with which this Container is
-  * associated.
-  */
-  protected Pipeline pipeline = new StandardPipeline(this);
+    /**
+     * The parent class loader to be configured when we install a
+     * Loader.
+     */
+    protected ClassLoader parentClassLoader = null;
 
 
-  /**
-  * The Realm with which this Container is associated.
-  */
-  protected Realm realm = null;
+    /**
+     * The Pipeline object with which this Container is
+     * associated.
+     */
+    protected Pipeline pipeline = new StandardPipeline(this);
 
 
-  /**
-  * The resources DirContext object with which this Container
-  * is associated.
-  */
-  protected DirContext resources = null;
+    /**
+     * The Realm with which this Container is associated.
+     */
+    protected Realm realm = null;
+
+
+    /**
+     * The resources DirContext object with which this Container
+     * is associated.
+     */
+    protected DirContext resources = null;
+}
 ```
 
 ### 4.4.3 Misleading Comments 误导性注释
@@ -526,20 +513,19 @@ Listing 4-3
 
 ```java
 /**
-*
-* @param title The title of the CD
-* @param author The author of the CD
-* @param tracks The number of tracks on the CD
-* @param durationInMinutes The duration of the CD in minutes
-*/
+ * @param title             The title of the CD
+ * @param author            The author of the CD
+ * @param tracks            The number of tracks on the CD
+ * @param durationInMinutes The duration of the CD in minutes
+ */
 public void addCD(String title, String author,
                   int tracks, int durationInMinutes) {
-  CD cd = new CD();
-  cd.title = title;
-  cd.author = author;
-  cd.tracks = tracks;
-  cd.duration = duration;
-  cdList.add(cd);
+    CD cd = new CD();
+    cd.title = title;
+    cd.author = author;
+    cd.tracks = tracks;
+    cd.duration = duration;
+    cdList.add(cd);
 }
 ```
 
@@ -583,8 +569,8 @@ Sometimes you see comments that are nothing but noise. They restate the obvious 
 
 ```java
 /**
-* Default constructor.
-*/
+ * Default constructor.
+ */
 protected AnnualDateRule() {
 }
 ```
@@ -594,8 +580,10 @@ No, really? Or how about this:
 > 对吧？再看看这个：
 
 ```java
-/** The day of the month. */
-    private int dayOfMonth;
+/**
+ * The day of the month.
+ */
+private int dayOfMonth;
 ```
 
 And then there’s this paragon of redundancy:
@@ -604,12 +592,12 @@ And then there’s this paragon of redundancy:
 
 ```java
 /**
-  * Returns the day of the month.
-  *
-  * @return the day of the month.
-  */
+ * Returns the day of the month.
+ *
+ * @return the day of the month.
+ */
 public int getDayOfMonth() {
-  return dayOfMonth;
+    return dayOfMonth;
 }
 ```
 
@@ -628,28 +616,19 @@ Listing 4-4 startSending
 > 代码清单 4-4 startSending
 
 ```java
-private void startSending()
-{
-  try
-  {
-    doSending();
-  }
-  catch(SocketException e)
-  {
-    // normal. someone stopped the request.
-  }
-  catch(Exception e)
-  {
-    try
-    {
-      response.add(ErrorResponder.makeExceptionString(e));
-      response.closeAll();
+private void startSending() {
+    try {
+        doSending();
+    } catch (SocketException e) {
+        // normal. someone stopped the request.
+    } catch (Exception e) {
+        try {
+            response.add(ErrorResponder.makeExceptionString(e));
+            response.closeAll();
+        } catch (Exception e1) {
+            //Give me a break!
+        }
     }
-    catch(Exception e1)
-    {
-      //Give me a break!
-    }
-  }
 }
 ```
 
@@ -662,32 +641,22 @@ Listing 4-5 startSending (refactored)
 > 代码清单 4-5 startSending（重构之后）
 
 ```java
-private void startSending()
-{
-try
-{
-  doSending();
-}
-  catch(SocketException e)
-  {
-    // normal. someone stopped the request.
-  }
-  catch(Exception e)
-  {
-    addExceptionAndCloseResponse(e);
-  }
+private void startSending() {
+    try {
+        doSending();
+    } catch (SocketException e) {
+        // normal. someone stopped the request.
+    } catch (Exception e) {
+        addExceptionAndCloseResponse(e);
+    }
 }
 
-private void addExceptionAndCloseResponse(Exception e)
-{
-  try
-  {
-    response.add(ErrorResponder.makeExceptionString(e));
-    response.closeAll();
-  }
-  catch(Exception e1)
-  {
-  }
+private void addExceptionAndCloseResponse(Exception e) {
+    try {
+        response.add(ErrorResponder.makeExceptionString(e));
+        response.closeAll();
+    } catch (Exception e1) {
+    }
 }
 ```
 
@@ -775,27 +744,27 @@ Listing 4-6 wc.java
 
 ```java
 public class wc {
-  public static void main(String[] args) {
-    BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-    String line;
-    int lineCount = 0;
-    int charCount = 0;
-    int wordCount = 0;
-    try {
-      while ((line = in.readLine()) != null) {
-        lineCount++;
-        charCount += line.length();
-        String words[] = line.split("\\W");
-        wordCount += words.length;
-      } //while
-      System.out.println("wordCount = " + wordCount);
-      System.out.println("lineCount = " + lineCount);
-      System.out.println("charCount = " + charCount);
-    } // try
-    catch (IOException e) {
-      System.err.println("Error:" + e.getMessage());
-    } //catch
-  } //main
+    public static void main(String[] args) {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        String line;
+        int lineCount = 0;
+        int charCount = 0;
+        int wordCount = 0;
+        try {
+            while ((line = in.readLine()) != null) {
+                lineCount++;
+                charCount += line.length();
+                String words[] = line.split("\\W");
+                wordCount += words.length;
+            } //while
+            System.out.println("wordCount = " + wordCount);
+            System.out.println("lineCount = " + lineCount);
+            System.out.println("charCount = " + charCount);
+        } // try
+        catch (IOException e) {
+            System.err.println("Error:" + e.getMessage());
+        } //catch
+    } //main
 }
 ```
 
@@ -820,8 +789,8 @@ Few practices are as odious as commenting-out code. Don’t do this!
 > 直接把代码注释掉是讨厌的做法。别这么干！
 
 ```java
-  InputStreamResponse response = new InputStreamResponse();
-  response.setBody(formatter.getResultStream(), formatter.getByteCount());
+InputStreamResponse response = new InputStreamResponse();
+response.setBody(formatter.getResultStream(), formatter.getByteCount());
 // InputStream resultsStream = formatter.getResultStream();
 // StreamReader reader = new StreamReader(resultsStream);
 // response.setContent(reader.read(formatter.getByteCount()));
@@ -844,9 +813,7 @@ writeResolution();
 if (writeImageData()) {
     writeEnd();
     this.pngBytes = resizeByteArray(this.pngBytes, this.maxPos);
-}
-
-else {
+} else {
     this.pngBytes = null;
 }
 return this.pngBytes;
@@ -898,13 +865,12 @@ If you must write a comment, then make sure it describes the code it appears nea
 
 ```java
 /**
-* Port on which fitnesse would run. Defaults to 8082.
-*
-* @param fitnessePort
-*/
-public void setFitnessePort(int fitnessePort)
-{
-  this.fitnessePort = fitnessePort;
+ * Port on which fitnesse would run. Defaults to 8082.
+ *
+ * @param fitnessePort
+ */
+public void setFitnessePort(int fitnessePort) {
+    this.fitnessePort = fitnessePort;
 }
 ```
 
@@ -943,11 +909,11 @@ Consider, for example, this comment drawn from apache commons:
 > 以来自 Apache 公共库的这段注释为例：
 
 ```java
-   /*
-    * start with an array that is big enough to hold all the pixels
-    * (plus filter bytes), and an extra 200 bytes for header info
-    */
-   this.pngBytes = new byte[((this.width + 1) * this.height * 3) + 200];
+/*
+ * start with an array that is big enough to hold all the pixels
+ * (plus filter bytes), and an extra 200 bytes for header info
+ */
+this.pngBytes = new byte[((this.width + 1) * this.height * 3) + 200];
 ```
 
 What is a filter byte? Does it relate to the +1? Or to the \*3? Both? Is a pixel a byte? Why 200? The purpose of a comment is to explain code that does not explain itself. It is a pity when a comment needs its own explanation.
@@ -982,78 +948,73 @@ Listing 4-7 GeneratePrimes.java
 
 ```java
 /**
-* This class Generates prime numbers up to a user specified
-* maximum.  The algorithm used is the Sieve of Eratosthenes.
-* <p>
-* Eratosthenes of Cyrene, b. c. 276 BC, Cyrene, Libya --
-* d. c. 194, Alexandria.  The first man to calculate the
-* circumference of the Earth.  Also known for working on
-* calendars with leap years and ran the library at Alexandria.
-* <p>
-* The algorithm is quite simple.  Given an array of integers
-* starting at 2.  Cross out all multiples of 2.  Find the next
-* uncrossed integer, and cross out all of its multiples.
-* Repeat untilyou have passed the square root of the maximum
-* value.
-*
-* @author Alphonse
-* @version 13 Feb 2002 atp
-*/
+ * This class Generates prime numbers up to a user specified
+ * maximum.  The algorithm used is the Sieve of Eratosthenes.
+ * <p>
+ * Eratosthenes of Cyrene, b. c. 276 BC, Cyrene, Libya --
+ * d. c. 194, Alexandria.  The first man to calculate the
+ * circumference of the Earth.  Also known for working on
+ * calendars with leap years and ran the library at Alexandria.
+ * <p>
+ * The algorithm is quite simple.  Given an array of integers
+ * starting at 2.  Cross out all multiples of 2.  Find the next
+ * uncrossed integer, and cross out all of its multiples.
+ * Repeat untilyou have passed the square root of the maximum
+ * value.
+ *
+ * @author Alphonse
+ * @version 13 Feb 2002 atp
+ */
+
 import java.util.*;
 
-public class GeneratePrimes
-{
-  /**
-  * @param maxValue is the generation limit.
-  */
-  public static int[] generatePrimes(int maxValue)
-  {
-    if (maxValue >= 2) // the only valid case
-    {
-      // declarations
-      int s = maxValue + 1; // size of array
-      boolean[] f = new boolean[s];
-      int i;
-      // initialize array to true.
-      for (i = 0; i < s; i++)
-        f[i] = true;
-
-      // get rid of known non-primes
-      f[0] = f[1] = false;
-
-      // sieve
-      int j;
-      for (i = 2; i < Math.sqrt(s) + 1; i++)
-      {
-        if (f[i]) // if i is uncrossed, cross its multiples.
+public class GeneratePrimes {
+    /**
+     * @param maxValue is the generation limit.
+     */
+    public static int[] generatePrimes(int maxValue) {
+        if (maxValue >= 2) // the only valid case
         {
-          for (j = 2 * i; j < s; j += i)
-            f[j] = false; // multiple is not prime
-        }
-      }
+            // declarations
+            int s = maxValue + 1; // size of array
+            boolean[] f = new boolean[s];
+            int i;
+            // initialize array to true.
+            for (i = 0; i < s; i++)
+                f[i] = true;
 
-      // how many primes are there?
-      int count = 0;
-      for (i = 0; i < s; i++)
-      {
-        if (f[i])
-          count++; // bump count.
-      }
+            // get rid of known non-primes
+            f[0] = f[1] = false;
 
-      int[] primes = new int[count];
+            // sieve
+            int j;
+            for (i = 2; i < Math.sqrt(s) + 1; i++) {
+                if (f[i]) // if i is uncrossed, cross its multiples.
+                {
+                    for (j = 2 * i; j < s; j += i)
+                        f[j] = false; // multiple is not prime
+                }
+            }
 
-      // move the primes into the result
-      for (i = 0, j = 0; i < s; i++)
-      {
-        if (f[i])  // if prime
-          primes[j++] = i;
-      }
+            // how many primes are there?
+            int count = 0;
+            for (i = 0; i < s; i++) {
+                if (f[i])
+                    count++; // bump count.
+            }
 
-      return primes;  // return the primes
+            int[] primes = new int[count];
+
+            // move the primes into the result
+            for (i = 0, j = 0; i < s; i++) {
+                if (f[i])  // if prime
+                    primes[j++] = i;
+            }
+
+            return primes;  // return the primes
+        } else // maxValue < 2
+            return new int[0]; // return null array if bad input.
     }
-    else // maxValue < 2
-      return new int[0]; // return null array if bad input.
-  }
 }
 ```
 
@@ -1067,87 +1028,77 @@ Listing 4-8 PrimeGenerator.java (refactored)
 
 ```java
 /**
-* This class Generates prime numbers up to a user specified
-* maximum.  The algorithm used is the Sieve of Eratosthenes.
-* Given an array of integers starting at 2:
-* Find the first uncrossed integer, and cross out all its
-* multiples.  Repeat until there are no more multiples
-* in the array.
-*/
+ * This class Generates prime numbers up to a user specified
+ * maximum.  The algorithm used is the Sieve of Eratosthenes.
+ * Given an array of integers starting at 2:
+ * Find the first uncrossed integer, and cross out all its
+ * multiples.  Repeat until there are no more multiples
+ * in the array.
+ */
 
-public class PrimeGenerator
-{
-  private static boolean[] crossedOut;
-  private static int[] result;
+public class PrimeGenerator {
+    private static boolean[] crossedOut;
+    private static int[] result;
 
-  public static int[] generatePrimes(int maxValue)
-  {
-    if (maxValue < 2)
-      return new int[0];
-    else
-    {
-      uncrossIntegersUpTo(maxValue);
-      crossOutMultiples();
-      putUncrossedIntegersIntoResult();
-      return result;
+    public static int[] generatePrimes(int maxValue) {
+        if (maxValue < 2)
+            return new int[0];
+        else {
+            uncrossIntegersUpTo(maxValue);
+            crossOutMultiples();
+            putUncrossedIntegersIntoResult();
+            return result;
+        }
     }
-  }
 
-  private static void uncrossIntegersUpTo(int maxValue)
-  {
-    crossedOut = new boolean[maxValue + 1];
-    for (int i = 2; i < crossedOut.length; i++)
-      crossedOut[i] = false;
-  }
+    private static void uncrossIntegersUpTo(int maxValue) {
+        crossedOut = new boolean[maxValue + 1];
+        for (int i = 2; i < crossedOut.length; i++)
+            crossedOut[i] = false;
+    }
 
-  private static void crossOutMultiples()
-  {
-    int limit = determineIterationLimit();
-    for (int i = 2; i <= limit; i++)
-      if (notCrossed(i))
-        crossOutMultiplesOf(i);
-  }
+    private static void crossOutMultiples() {
+        int limit = determineIterationLimit();
+        for (int i = 2; i <= limit; i++)
+            if (notCrossed(i))
+                crossOutMultiplesOf(i);
+    }
 
-  private static int determineIterationLimit()
-  {
-    // Every multiple in the array has a prime factor that
-    // is less than or equal to the root of the array size,
-    // so we don’t have to cross out multiples of numbers
-    // larger than that root.
-    double iterationLimit = Math.sqrt(crossedOut.length);
-    return (int) iterationLimit;
-  }
+    private static int determineIterationLimit() {
+        // Every multiple in the array has a prime factor that
+        // is less than or equal to the root of the array size,
+        // so we don’t have to cross out multiples of numbers
+        // larger than that root.
+        double iterationLimit = Math.sqrt(crossedOut.length);
+        return (int) iterationLimit;
+    }
 
-  private static void crossOutMultiplesOf(int i)
-  {
-    for (int multiple = 2*i;
-        multiple < crossedOut.length;
-        multiple += i)
-      crossedOut[multiple] = true;
-  }
+    private static void crossOutMultiplesOf(int i) {
+        for (int multiple = 2 * i;
+             multiple < crossedOut.length;
+             multiple += i)
+            crossedOut[multiple] = true;
+    }
 
-  private static boolean notCrossed(int i)
-  {
-    return crossedOut[i] == false;
-  }
+    private static boolean notCrossed(int i) {
+        return crossedOut[i] == false;
+    }
 
-  private static void putUncrossedIntegersIntoResult()
-  {
-    result = new int[numberOfUncrossedIntegers()];
-    for (int j = 0, i = 2; i < crossedOut.length; i++)
-      if (notCrossed(i))
-        result[j++] = i;
-  }
+    private static void putUncrossedIntegersIntoResult() {
+        result = new int[numberOfUncrossedIntegers()];
+        for (int j = 0, i = 2; i < crossedOut.length; i++)
+            if (notCrossed(i))
+                result[j++] = i;
+    }
 
-  private static int numberOfUncrossedIntegers()
-  {
-    int count = 0;
-    for (int i = 2; i < crossedOut.length; i++)
-      if (notCrossed(i))
-        count++;
+    private static int numberOfUncrossedIntegers() {
+        int count = 0;
+        for (int i = 2; i < crossedOut.length; i++)
+            if (notCrossed(i))
+                count++;
 
-    return count;
-  }
+        return count;
+    }
 }
 ```
 

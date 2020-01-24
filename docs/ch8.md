@@ -35,7 +35,7 @@ Then, when some other part of the code needs to access the sensor, you see this 
 > 当代码的其他部分需要访问这些 sensor，就会有这行代码：
 
 ```java
-Sensor s = (Sensor)sensors.get(sensorId );
+Sensor s = (Sensor)sensors.get(sensorId);
 ```
 
 We don’t just see it once, but over and over again throughout the code. The client of this code carries the responsibility of getting an Object from the Map and casting it to the right type. This works, but it’s not clean code. Also, this code does not tell its story as well as it could. The readability of this code can be greatly improved by using generics, as shown below:
@@ -45,7 +45,7 @@ We don’t just see it once, but over and over again throughout the code. The cl
 ```java
 Map<Sensor> sensors = new HashMap<Sensor>();
 …
-Sensor s = sensors.get(sensorId );
+Sensor s = sensors.get(sensorId);
 ```
 
 However, this doesn’t solve the problem that `Map<Sensor>` provides more capability than we need or want.
@@ -113,8 +113,8 @@ Let’s say we want to use the apache log4j package rather than our own custom-b
 ```java
 @Test
 public void testLogCreate() {
-   Logger logger = Logger.getLogger(“MyLogger”);
-   logger.info(“hello”);
+   Logger logger = Logger.getLogger("MyLogger");
+   logger.info("hello");
 }
 ```
 
@@ -125,10 +125,10 @@ When we run it, the logger produces an error that tells us we need something cal
 ```java
 @Test
 public void testLogAddAppender() {
-   Logger logger = Logger.getLogger(“MyLogger”);
+   Logger logger = Logger.getLogger("MyLogger");
    ConsoleAppender appender = new ConsoleAppender();
    logger.addAppender(appender);
-   logger.info(“hello”);
+   logger.info("hello");
 }
 ```
 
@@ -139,12 +139,12 @@ This time we find that the Appender has no output stream. Odd—it seems logical
 ```java
 @Test
 public void testLogAddAppender() {
-   Logger logger = Logger.getLogger(“MyLogger”);
+   Logger logger = Logger.getLogger("MyLogger");
    logger.removeAllAppenders();
    logger.addAppender(new ConsoleAppender(
-         new PatternLayout(“%p %t %m%n”),
-         ConsoleAppender.SYSTEM_OUT));
-   logger.info(“hello”);
+            new PatternLayout("%p %t %m%n"),
+            ConsoleAppender.SYSTEM_OUT));
+   logger.info("hello");
 }
 ```
 
@@ -170,32 +170,35 @@ Listing 8-1 LogTest.java
 
 ```java
 public class LogTest {
-   private Logger logger;
+    private Logger logger;
 
-   @Before
-   public void initialize() {
-      logger = Logger.getLogger(“logger”);
-      logger.removeAllAppenders();
-      Logger.getRootLogger().removeAllAppenders();
-   }
-   @Test
-   public void basicLogger() {
-      BasicConfigurator.configure();
-      logger.info(“basicLogger”);
-   }
-   @Test
-   public void addAppenderWithStream() {
-   logger.addAppender(new ConsoleAppender(
-      new PatternLayout(“%p %t %m%n”),
-      ConsoleAppender.SYSTEM_OUT));
-      logger.info(“addAppenderWithStream”);
-   }
-   @Test
-   public void addAppenderWithoutStream() {
-   logger.addAppender(new ConsoleAppender(
-         new PatternLayout(“%p %t %m%n”)));
-      logger.info(“addAppenderWithoutStream”);
-   }
+    @Before
+    public void initialize() {
+        logger = Logger.getLogger("logger");
+        logger.removeAllAppenders();
+        Logger.getRootLogger().removeAllAppenders();
+    }
+
+    @Test
+    public void basicLogger() {
+        BasicConfigurator.configure();
+        logger.info("basicLogger");
+    }
+
+    @Test
+    public void addAppenderWithStream() {
+        logger.addAppender(new ConsoleAppender(
+                new PatternLayout("%p %t %m%n"),
+                ConsoleAppender.SYSTEM_OUT));
+        logger.info("addAppenderWithStream");
+    }
+
+    @Test
+    public void addAppenderWithoutStream() {
+        logger.addAppender(new ConsoleAppender(
+                new PatternLayout("%p %t %m%n")));
+        logger.info("addAppenderWithoutStream");
+    }
 }
 ```
 
