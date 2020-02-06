@@ -8,9 +8,7 @@ In the early days of programming we composed our systems of routines and subrout
 
 Consider the code in Listing 3-1. It’s hard to find a long function in FitNesse,1 but after a bit of searching I came across this one. Not only is it long, but it’s got duplicated code, lots of odd strings, and many strange and inobvious data types and APIs. See how much sense you can make of it in the next three minutes.
 
-> 请看代码清单 3-1。在 FitNesse[1]中，很难找到长函数，不过我还是搜寻到一个。它不光长，而且代码也很复杂，有大量字符串、怪异而不显见的数据类型和 API。花 3 分钟时间，看能读懂多少？
-
-1. An open-source testing tool. www.fitnesse.org
+> 请看代码清单 3-1。在 FitNesse 中，很难找到长函数，不过我还是搜寻到一个。它不光长，而且代码也很复杂，有大量字符串、怪异而不显见的数据类型和 API。花 3 分钟时间，看能读懂多少？
 
 Listing 3-1 HtmlUtil.java (FitNesse 20070619)
 
@@ -115,9 +113,7 @@ public static String renderPageWithSetupsAndTeardowns(
 
 Unless you are a student of FitNesse, you probably don’t understand all the details. Still, you probably understand that this function performs the inclusion of some setup and teardown pages into a test page and then renders that page into HTML. If you are familiar with JUnit,2 you probably realize that this function belongs to some kind of Web-based testing framework. And, of course, that is correct. Divining that information from Listing 3-2 is pretty easy, but it’s pretty well obscured by Listing 3-1.
 
-> 除非你正在研究 FitNesse，否则就理解不了所有细节。不过，你大概能明白，该函数包含把一些设置和拆解页放入一个测试页面，再渲染为 HTML 的操作。如果你熟悉 JUnit[2]，或许会想到，该函数归属于某个基于 Web 的测试框架。而且，这当然没错。从代码清单 3-2 中获得信息很容易，而代码清单 3-1 则晦涩难明。
-
-2. An open-source unit-testing tool for Java. www.junit.org
+> 除非你正在研究 FitNesse，否则就理解不了所有细节。不过，你大概能明白，该函数包含把一些设置和拆解页放入一个测试页面，再渲染为 HTML 的操作。如果你熟悉 JUnit，或许会想到，该函数归属于某个基于 Web 的测试框架。而且，这当然没错。从代码清单 3-2 中获得信息很容易，而代码清单 3-1 则晦涩难明。
 
 So what is it that makes a function like Listing 3-2 easy to read and understand? How can we make a function communicate its intent? What attributes can we give our functions that will allow a casual reader to intuit the kind of program they live inside?
 
@@ -135,9 +131,7 @@ In the eighties we used to say that a function should be no bigger than a screen
 
 How short should a function be? In 1999 I went to visit Kent Beck at his home in Oregon. We sat down and did some programming together. At one point he showed me a cute little Java/Swing program that he called Sparkle. It produced a visual effect on the screen very similar to the magic wand of the fairy godmother in the movie Cinderella. As you moved the mouse, the sparkles would drip from the cursor with a satisfying scintillation, falling to the bottom of the window through a simulated gravitational field. When Kent showed me the code, I was struck by how small all the functions were. I was used to functions in Swing programs that took up miles of vertical space. Every function in this program was just two, or three, or four lines long. Each was transparently obvious. Each told a story. And each led you to the next in a compelling order. That’s how short your functions should be!3
 
-> 函数到底该有多长？1991 年，我去 Kent Beck 位于奥勒冈州（Oregon）的家中拜访。我们坐到一起写了些代码。他给我看一个叫做 Sparkle（火花闪耀）的有趣的 Java/Swing 小程序。程序在屏幕上描画电影 Cinderella（《灰姑娘》）中仙女用魔棒造出的那种视觉效果。只要移动鼠标，光标所在处就会爆发出一团令人欣喜的火花，沿着模拟重力场划落到窗口底部。肯特给我看代码的时候，我惊讶于其中那些函数尺寸之小。我看惯了 Swing 程序中长度数以里计的函数。但这个程序中每个函数都只有两行、三行或四行长。每个函数都一目了然。每个函数都只说一件事。而且，每个函数都依序把你带到下一个函数。这就是函数应该达到的短小程度！[3]
-
-3. I asked Kent whether he still had a copy, but he was unable to find one. I searched all my old computers too, but to no avail. All that is left now is my memory of that program.
+> 函数到底该有多长？1991 年，我去 Kent Beck 位于奥勒冈州（Oregon）的家中拜访。我们坐到一起写了些代码。他给我看一个叫做 Sparkle（火花闪耀）的有趣的 Java/Swing 小程序。程序在屏幕上描画电影 Cinderella（《灰姑娘》）中仙女用魔棒造出的那种视觉效果。只要移动鼠标，光标所在处就会爆发出一团令人欣喜的火花，沿着模拟重力场划落到窗口底部。肯特给我看代码的时候，我惊讶于其中那些函数尺寸之小。我看惯了 Swing 程序中长度数以里计的函数。但这个程序中每个函数都只有两行、三行或四行长。每个函数都一目了然。每个函数都只说一件事。而且，每个函数都依序把你带到下一个函数。这就是函数应该达到的短小程度！
 
 How short should your functions be? They should usually be shorter than Listing 3-2! Indeed, Listing 3-2 should really be shortened to Listing 3-3.
 
@@ -200,9 +194,7 @@ The problem with this statement is that it is hard to know what “one thing” 
 
 So which is it? Is the function doing one thing or three things? Notice that the three steps of the function are one level of abstraction below the stated name of the function. We can describe the function by describing it as a brief TO4 paragraph:
 
-> 那件事是什么？函数是做了一件事呢，还是做了三件事？注意，这三个步骤均在该函数名下的同一抽象层上。可以用简洁的 TO[4]起头段落来描述这个函数：
-
-4. The LOGO language used the keyword “TO” in the same way that Ruby and Python use “def.” So every function began with the word “TO.” This had an interesting effect on the way functions were designed.
+> 那件事是什么？函数是做了一件事呢，还是做了三件事？注意，这三个步骤均在该函数名下的同一抽象层上。可以用简洁的 TO 起头段落来描述这个函数：
 
 TO RenderPageWithSetupsAndTeardowns, we check to see whether the page is a test page and if so, we include the setups and teardowns. In either case we render the page in HTML.
 
@@ -230,7 +222,7 @@ Look at Listing 4-7 on page 71. Notice that the generatePrimes function is divid
 
 In order to make sure our functions are doing “one thing,” we need to make sure that the statements within our function are all at the same level of abstraction. It is easy to see how Listing 3-1 violates this rule. There are concepts in there that are at a very high level of abstraction, such as getHtml(); others that are at an intermediate level of abstraction, such as: String pagePathName = PathParser.render(pagePath); and still others that are remarkably low level, such as: .append(”\n”).
 
-> 要确保函数只做一件事，函数中的语句都要在同一抽象层级上。一眼就能看出，代码清单 3-1 违反了这条规矩。那里面有 getHtml( )等位于较高抽象层的概念，也有 String pagePathName = PathParser.render(pagePath)等位于中间抽象层的概念，还有.append("\n") 等位于相当低的抽象层的概念。
+> 要确保函数只做一件事，函数中的语句都要在同一抽象层级上。一眼就能看出，代码清单 3-1 违反了这条规矩。那里面有 getHtml() 等位于较高抽象层的概念，也有 String pagePathName = PathParser.render(pagePath)等位于中间抽象层的概念，还有.append("\n") 等位于相当低的抽象层的概念。
 
 Mixing levels of abstraction within a function is always confusing. Readers may not be able to tell whether a particular expression is an essential concept or a detail. Worse, like broken windows, once details are mixed with essential concepts, more and more details tend to accrete within the function.
 
@@ -240,9 +232,7 @@ Mixing levels of abstraction within a function is always confusing. Readers may 
 
 We want the code to read like a top-down narrative.5 We want every function to be followed by those at the next level of abstraction so that we can read the program, descending one level of abstraction at a time as we read down the list of functions. I call this The Step-down Rule.
 
-> 我们想要让代码拥有自顶向下的阅读顺序。[5]我们想要让每个函数后面都跟着位于下一抽象层级的函数，这样一来，在查看函数列表时，就能偱抽象层级向下阅读了。我把这叫做向下规则。
-
-5. [KP78], p. 37.
+> 我们想要让代码拥有自顶向下的阅读顺序。我们想要让每个函数后面都跟着位于下一抽象层级的函数，这样一来，在查看函数列表时，就能偱抽象层级向下阅读了。我把这叫做向下规则。
 
 To say this differently, we want to be able to read the program as though it were a set of TO paragraphs, each of which is describing the current level of abstraction and referencing subsequent TO paragraphs at the next level down.
 
@@ -272,9 +262,7 @@ Take a look at Listing 3-7 at the end of this chapter. It shows the whole testab
 
 It’s hard to make a small switch statement.6 Even a switch statement with only two cases is larger than I’d like a single block or function to be. It’s also hard to make a switch statement that does one thing. By their nature, switch statements always do N things. Unfortunately we can’t always avoid switch statements, but we can make sure that each switch statement is buried in a low-level class and is never repeated. We do this, of course, with polymorphism.
 
-> 写出短小的 switch 语句很难[6]。即便是只有两种条件的 switch 语句也要比我想要的单个代码块或函数大得多。写出只做一件事的 switch 语句也很难。Switch 天生要做 N 件事。不幸我们总无法避开 switch 语句，不过还是能够确保每个 switch 都埋藏在较低的抽象层级，而且永远不重复。当然，我们利用多态来实现这一点。
-
-6. And, of course, I include if/else chains in this.
+> 写出短小的 switch 语句很难。即便是只有两种条件的 switch 语句也要比我想要的单个代码块或函数大得多。写出只做一件事的 switch 语句也很难。Switch 天生要做 N 件事。不幸我们总无法避开 switch 语句，不过还是能够确保每个 switch 都埋藏在较低的抽象层级，而且永远不重复。当然，我们利用多态来实现这一点。
 
 Consider Listing 3-4. It shows just one of the operations that might depend on the type of employee.
 
@@ -302,15 +290,7 @@ public Money calculatePay(Employee e)
 
 There are several problems with this function. First, it’s large, and when new employee types are added, it will grow. Second, it very clearly does more than one thing. Third, it violates the Single Responsibility Principle7 (SRP) because there is more than one reason for it to change. Fourth, it violates the Open Closed Principle8 (OCP) because it must change whenever new types are added. But possibly the worst problem with this function is that there are an unlimited number of other functions that will have the same structure. For example we could have
 
-> 该函数有好几个问题。首先，它太长，当出现新的雇员类型时，还会变得更长。其次，它明显做了不止一件事。第三，它违反了单一权责原则（Single Responsibility Principle[7], SRP），因为有好几个修改它的理由。第四，它违反了开放闭合原则（Open Closed Principle[8],OCP），因为每当添加新类型时，就必须修改之。不过，该函数最麻烦的可能是到处皆有类似结构的函数。例如，可能会有
-
-7. a. http://en.wikipedia.org/wiki/Single_responsibility_principle
-
-b. http://www.objectmentor.com/resources/articles/srp.pdf
-
-8. a. http://en.wikipedia.org/wiki/Open/closed_principle
-
-b. http://www.objectmentor.com/resources/articles/ocp.pdf
+> 该函数有好几个问题。首先，它太长，当出现新的雇员类型时，还会变得更长。其次，它明显做了不止一件事。第三，它违反了单一权责原则（Single Responsibility Principle, SRP），因为有好几个修改它的理由。第四，它违反了开放闭合原则（Open Closed Principle,OCP），因为每当添加新类型时，就必须修改之。不过，该函数最麻烦的可能是到处皆有类似结构的函数。例如，可能会有
 
 ```java
 isPayday(Employee e, Date date),
@@ -330,9 +310,7 @@ or a host of others. All of which would have the same deleterious structure.
 
 The solution to this problem (see Listing 3-5) is to bury the switch statement in the basement of an ABSTRACT FACTORY,9 and never let anyone see it. The factory will use the switch statement to create appropriate instances of the derivatives of Employee, and the various functions, such as calculatePay, isPayday, and deliverPay, will be dispatched polymorphically through the Employee interface.
 
-> 该问题的解决方案（如代码清单 3-5 所示）是将 switch 语句埋到抽象工厂[9]底下，不让任何人看到。该工厂使用 switch 语句为 Employee 的派生物创建适当的实体，而不同的函数，如 calculatePay、isPayday 和 deliverPay 等，则藉由 Employee 接口多态地接受派遣。
-
-9. [GOF].
+> 该问题的解决方案（如代码清单 3-5 所示）是将 switch 语句埋到抽象工厂底下，不让任何人看到。该工厂使用 switch 语句为 Employee 的派生物创建适当的实体，而不同的函数，如 calculatePay、isPayday 和 deliverPay 等，则藉由 Employee 接口多态地接受派遣。
 
 My general rule for switch statements is that they can be tolerated if they appear only once, are used to create polymorphic objects, and are hidden behind an inheritance relationship so that the rest of the system can’t see them [G23]. Of course every circumstance is unique, and there are times when I violate one or more parts of that rule.
 
@@ -448,9 +426,7 @@ In Listing 3-7 we had no choice because the callers were already passing that fl
 
 A function with two arguments is harder to understand than a monadic function. For example, writeField(name) is easier to understand than writeField(output-Stream, name).10 Though the meaning of both is clear, the first glides past the eye, easily depositing its meaning. The second requires a short pause until we learn to ignore the first parameter. And that, of course, eventually results in problems because we should never ignore any part of code. The parts we ignore are where the bugs will hide.
 
-> 有两个参数的函数要比一元函数难懂。例如，writeField(name)比 writeField(outputStream,name)[10]好懂。尽管两种情况下意义都很清楚，但第一个只要扫一眼就明白，更好地表达了其意义。第二个就得暂停一下才能明白，除非我们学会忽略第一个参数。而且最终那也会导致问题，因为我们根本就不该忽略任何代码。忽略掉的部分就是缺陷藏身之地。
-
-10. I just finished refactoring a module that used the dyadic form. I was able to make the outputStream a field of the class and convert all the writeField calls to the monadic form. The result was much cleaner.
+> 有两个参数的函数要比一元函数难懂。例如，writeField(name)比 writeField(outputStream,name)好懂。尽管两种情况下意义都很清楚，但第一个只要扫一眼就明白，更好地表达了其意义。第二个就得暂停一下才能明白，除非我们学会忽略第一个参数。而且最终那也会导致问题，因为我们根本就不该忽略任何代码。忽略掉的部分就是缺陷藏身之地。
 
 There are times, of course, where two arguments are appropriate. For example, Point p = new Point(0,0); is perfectly reasonable. Cartesian points naturally take two arguments. Indeed, we’d be very surprised to see new Point(0). However, the two arguments in this case are ordered components of a single value! Whereas output-Stream and name have neither a natural cohesion, nor a natural ordering.
 
@@ -741,19 +717,13 @@ public enum Error {
 
 Classes like this are a dependency magnet; many other classes must import and use them. Thus, when the Error enum changes, all those other classes need to be recompiled and redeployed.11 This puts a negative pressure on the Error class. Programmers don’t want to add new errors because then they have to rebuild and redeploy everything. So they reuse old error codes instead of adding new ones.
 
-> 这样的类就是一块依赖磁铁（dependency magnet）；其他许多类都得导入和使用它。当 Error 枚举修改时，所有这些其他的类都需要重新编译和部署。[11]这对 Error 类造成了负面压力。程序员不愿增加新的错误代码，因为这样他们就得重新构建和部署所有东西。于是他们就复用旧的错误码，而不添加新的。
-
-11. Those who felt that they could get away without recompiling and redeploying have been found—and dealt with.
+> 这样的类就是一块依赖磁铁（dependency magnet）；其他许多类都得导入和使用它。当 Error 枚举修改时，所有这些其他的类都需要重新编译和部署。这对 Error 类造成了负面压力。程序员不愿增加新的错误代码，因为这样他们就得重新构建和部署所有东西。于是他们就复用旧的错误码，而不添加新的。
 
 When you use exceptions rather than error codes, then new exceptions are derivatives of the exception class. They can be added without forcing any recompilation or redeployment.12
 
-> 使用异常替代错误码，新异常就可以从异常类派生出来，无需重新编译或重新部署[12]。
-
-12. This is an example of the Open Closed Principle (OCP) [PPP02].
+> 使用异常替代错误码，新异常就可以从异常类派生出来，无需重新编译或重新部署。
 
 ## 3.10 DON’T REPEAT YOURSELF13 别重复自己
-
-13. The DRY principle. [PRAG].
 
 Look back at Listing 3-1 carefully and you will notice that there is an algorithm that gets repeated four times, once for each of the SetUp, SuiteSetUp, TearDown, and SuiteTearDown cases. It’s not easy to spot this duplication because the four instances are intermixed with other code and aren’t uniformly duplicated. Still, the duplication is a problem because it bloats the code and will require four-fold modification should the algorithm ever have to change. It is also a four-fold opportunity for an error of omission.
 
@@ -767,15 +737,13 @@ This duplication was remedied by the include method in Listing 3-7. Read through
 
 Duplication may be the root of all evil in software. Many principles and practices have been created for the purpose of controlling or eliminating it. Consider, for example, that all of Codd’s database normal forms serve to eliminate duplication in data. Consider also how object-oriented programming serves to concentrate code into base classes that would otherwise be redundant. Structured programming, Aspect Oriented Programming, Component Oriented Programming, are all, in part, strategies for eliminating duplication. It would appear that since the invention of the subroutine, innovations in software development have been an ongoing attempt to eliminate duplication from our source code.
 
-> 重复可能是软件中一切邪恶的根源。许多原则与实践规则都是为控制与消除重复而创建。例如，全部考德（Codd）[14]数据库范式都是为消灭数据重复而服务。再想想看，面向对象编程是如何将代码集中到基类，从而避免了冗余。面向方面编程（Aspect Oriented Programming）、面向组件编程（Component Oriented Programming）多少也都是消除重复的一种策略。看来，自子程序发明以来，软件开发领域的所有创新都是在不断尝试从源代码中消灭重复。
+> 重复可能是软件中一切邪恶的根源。许多原则与实践规则都是为控制与消除重复而创建。例如，全部考德（Codd）数据库范式都是为消灭数据重复而服务。再想想看，面向对象编程是如何将代码集中到基类，从而避免了冗余。面向方面编程（Aspect Oriented Programming）、面向组件编程（Component Oriented Programming）多少也都是消除重复的一种策略。看来，自子程序发明以来，软件开发领域的所有创新都是在不断尝试从源代码中消灭重复。
 
 ## 3.11 STRUCTURED PROGRAMMING 结构化编程
 
 Some programmers follow Edsger Dijkstra’s rules of structured programming.14 Dijkstra said that every function, and every block within a function, should have one entry and one exit. Following these rules means that there should only be one return statement in a function, no break or continue statements in a loop, and never, ever, any goto statements.
 
-> 有些程序员遵循 Edsger Dijkstra 的结构化编程规则[15]。Dijkstra 认为，每个函数、函数中的每个代码块都应该有一个入口、一个出口。遵循这些规则，意味着在每个函数中只该有一个 return 语句，循环中不能有 break 或 continue 语句，而且永永远远不能有任何 goto 语句。
-
-14. [SP72].
+> 有些程序员遵循 Edsger Dijkstra 的结构化编程规则。Dijkstra 认为，每个函数、函数中的每个代码块都应该有一个入口、一个出口。遵循这些规则，意味着在每个函数中只该有一个 return 语句，循环中不能有 break 或 continue 语句，而且永永远远不能有任何 goto 语句。
 
 While we are sympathetic to the goals and disciplines of structured programming, those rules serve little benefit when functions are very small. It is only in larger functions that such rules provide significant benefit.
 

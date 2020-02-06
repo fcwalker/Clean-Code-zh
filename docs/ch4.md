@@ -6,8 +6,6 @@
 
 > “别给糟糕的代码加注释——重新写吧。”——Brian W. Kernighan 与 P. J.
 
-1. [KP78], p. 144.
-
 Nothing can be quite so helpful as a well-placed comment. Nothing can clutter up a module more than frivolous dogmatic comments. Nothing can be quite so damaging as an old crufty comment that propagates lies and misinformation.
 
 > 什么也比不上放置良好的注释来得有用。什么也不会比乱七八糟的注释更有本事搞乱一个模块。什么也不会比陈旧、提供错误信息的注释更有破坏性。
@@ -247,7 +245,7 @@ public void _testWithReallyBigFile() {
 
 Nowadays, of course, we’d turn off the test case by using the @Ignore attribute with an appropriate explanatory string. @Ignore(”Takes too long to run”). But back in the days before JUnit 4, putting an underscore in front of the method name was a common convention. The comment, while flippant, makes the point pretty well.
 
-> 当然，如今我们多数会利用附上恰当解释性字符串的@Ignore 属性来关闭测试用例。比如@Ignore("Takes too long to run[2]")。但在 JUnit4 之前的日子里，惯常的做法是在方法名前面加上下划线。如果注释足够有说服力，就会很有用了。
+> 当然，如今我们多数会利用附上恰当解释性字符串的@Ignore 属性来关闭测试用例。比如@Ignore("Takes too long to run")。但在 JUnit4 之前的日子里，惯常的做法是在方法名前面加上下划线。如果注释足够有说服力，就会很有用了。
 
 Here’s another, more poignant example:
 
@@ -607,9 +605,7 @@ These comments are so noisy that we learn to ignore them. As we read through cod
 
 The first comment in Listing 4-4 seems appropriate.2 It explains why the catch block is being ignored. But the second comment is pure noise. Apparently the programmer was just so frustrated with writing try/catch blocks in this function that he needed to vent.
 
-> 代码清单 4-4 中的第一条注释貌似还行[3]。它解释了 catch 代码块为何被忽略。不过第二条注释就纯是废话了。显然，该程序员沮丧于编写函数中那些 try/catch 代码块。
-
-2. The current trend for IDEs to check spelling in comments will be a balm for those of us who read a lot of code.
+> 代码清单 4-4 中的第一条注释貌似还行。它解释了 catch 代码块为何被忽略。不过第二条注释就纯是废话了。显然，该程序员沮丧于编写函数中那些 try/catch 代码块。
 
 Listing 4-4 startSending
 
@@ -936,7 +932,7 @@ As useful as javadocs are for public APIs, they are anathema to code that is not
 
 I wrote the module in Listing 4-7 for the first XP Immersion. It was intended to be an example of bad coding and commenting style. Kent Beck then refactored this code into a much more pleasant form in front of several dozen enthusiastic students. Later I adapted the example for my book Agile Software Development, Principles, Patterns, and Practices and the first of my Craftsman articles published in Software Development magazine.
 
-> 我曾为首个 XP Immersion[4]课程编写了代码清单 4-7 列出的模块。这个模块几乎是糟糕的代码和坏注释风格的典范。后来 Kent Beck 当着几十位满腔热情的学生的面重构了这些代码，将其变得令人愉悦。后来，我在拙著 Agile Software Development，Principles，Patterns，and Practices（中译版《敏捷软件开发：原则、模式与实践》）和 Software Development（软件开发）杂志的“技艺”专栏的第一篇文章中引用了这个例子。
+> 我曾为首个 XP Immersion 课程编写了代码清单 4-7 列出的模块。这个模块几乎是糟糕的代码和坏注释风格的典范。后来 Kent Beck 当着几十位满腔热情的学生的面重构了这些代码，将其变得令人愉悦。后来，我在拙著 Agile Software Development，Principles，Patterns，and Practices（中译版《敏捷软件开发：原则、模式与实践》）和 Software Development（软件开发）杂志的“技艺”专栏的第一篇文章中引用了这个例子。
 
 What I find fascinating about this module is that there was a time when many of us would have considered it “well documented.” Now we see it as a small mess. See how many different comment problems you can find.
 

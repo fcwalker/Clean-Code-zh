@@ -36,9 +36,7 @@ How big are most Java source files? It turns out that there is a huge range of s
 
 Seven different projects are depicted. Junit, FitNesse, testNG, Time and Money, JDepend, Ant, and Tomcat. The lines through the boxes show the minimum and maximum file lengths in each project. The box shows approximately one-third (one standard deviation1) of the files. The middle of the box is the mean. So the average file size in the FitNesse project is about 65 lines, and about one-third of the files are between 40 and 100+ lines. The largest file in FitNesse is about 400 lines and the smallest is 6 lines. Note that this is a log scale, so the small difference in vertical position implies a very large difference in absolute size.
 
-> 图 5-1 中涉及 7 个不同项目：Junit、FitNesse、testNG、Time and Money、JDepend、Ant 和 Tomcat。贯穿方块的直线两端显示这些项目中最小和最大的文件长度。方块表示在平均值以上或以下的大约三分之一文件（一个标准偏差[1]）的长度。方块中间位置就是平均数。所以 FitNesse 项目的文件平均尺寸是 65 行，而上面三分之一在 40 ～ 100 行及 100 行以上之间。FitNesse 中最大的文件大约 400 行，最小是 6 行。这是个对数标尺，所以较小的垂直位置差异意味着文件绝对尺寸的较大差异。
-
-1. The box shows sigma/2 above and below the mean. Yes, I know that the file length distribution is not normal, and so the standard deviation is not mathematically precise. But we’re not trying for precision here. We’re just trying to get a feel.
+> 图 5-1 中涉及 7 个不同项目：Junit、FitNesse、testNG、Time and Money、JDepend、Ant 和 Tomcat。贯穿方块的直线两端显示这些项目中最小和最大的文件长度。方块表示在平均值以上或以下的大约三分之一文件（一个标准偏差）的长度。方块中间位置就是平均数。所以 FitNesse 项目的文件平均尺寸是 65 行，而上面三分之一在 40 ～ 100 行及 100 行以上之间。FitNesse 中最大的文件大约 400 行，最小是 6 行。这是个对数标尺，所以较小的垂直位置差异意味着文件绝对尺寸的较大差异。
 
 Figure 5-1 File length distributions LOG scale (box height = sigma)
 
@@ -418,9 +416,7 @@ These functions have a strong conceptual affinity because they share a common na
 
 In general we want function call dependencies to point in the downward direction. That is, a function that is called should be below a function that does the calling.2 This creates a nice flow down the source code module from high level to low level.
 
-> 一般而言，我们想自上向下展示函数调用依赖顺序。也就是说，被调用的函数应该放在执行调用的函数下面[2]。这样就建立了一种自顶向下贯穿源代码模块的良好信息流。
-
-2. This is the exact opposite of languages like Pascal, C, and C++ that enforce functions to be defined, or at least declared, before they are used.
+> 一般而言，我们想自上向下展示函数调用依赖顺序。也就是说，被调用的函数应该放在执行调用的函数下面。这样就建立了一种自顶向下贯穿源代码模块的良好信息流。
 
 As in newspaper articles, we expect the most important concepts to come first, and we expect them to be expressed with the least amount of polluting detail. We expect the low-level details to come last. This allows us to skim source files, getting the gist from the first few functions, without having to immerse ourselves in the details. Listing 5-5 is organized this way. Perhaps even better examples are Listing 15-5 on page 263, and Listing 3-7 on page 50.
 
@@ -502,9 +498,7 @@ Unfortunately, most tools for reformatting code are blind to the precedence of o
 
 When I was an assembly language programmer,3 I used horizontal alignment to accentuate certain structures. When I started coding in C, C++, and eventually Java, I continued to try to line up all the variable names in a set of declarations, or all the rvalues in a set of assignment statements. My code might have looked like this:
 
-> 当我还是个汇编语言程序员时[3]，使用水平对齐来强调某些程序结构。开始用 C、C++编码，最终转向 Java 后，我继续尽力对齐一组声明中的变量名，或一组赋值语句中的右值。我的代码看起来大概是这样：
-
-3. Who am I kidding? I still am an assembly language programmer. You can take the boy away from the metal, but you can’t take the metal out of the boy!
+> 当我还是个汇编语言程序员时，使用水平对齐来强调某些程序结构。开始用 C、C++编码，最终转向 Java 后，我继续尽力对齐一组声明中的变量名，或一组赋值语句中的右值。我的代码看起来大概是这样：
 
 ```java
 public class FitNesseExpediter implements ResponseSender
@@ -670,7 +664,7 @@ while (dis.read(buf, 0, readBufferSize) != -1) ;
 
 The title of this section is a play on words. Every programmer has his own favorite formatting rules, but if he works in a team, then the team rules.
 
-> 每个程序员都有自己喜欢的格式规则，但如果在一个团队中工作，就是团队说了算[4]。
+> 每个程序员都有自己喜欢的格式规则，但如果在一个团队中工作，就是团队说了算。
 
 A team of developers should agree upon a single formatting style, and then every member of that team should use that style. We want the software to have a consistent style. We don’t want it to appear to have been written by a bunch of disagreeing individuals.
 

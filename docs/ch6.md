@@ -145,9 +145,7 @@ Object-oriented programmers might wrinkle their noses at this and complain that 
 
 Now consider the object-oriented solution in Listing 6-6. Here the area() method is polymorphic. No Geometry class is necessary. So if I add a new shape, none of the existing functions are affected, but if I add a new function all of the shapes must be changed!1
 
-> 现在来看看代码清单 6-6 中的面向对象方案。这里，area() 方法是多态的。不需要有 Geometry 类。所以，如果添加一个新形状，现有的函数一个也不会受到影响，而当添加新函数时所有的形状都得做修改[1]！
-
-1. There are ways around this that are well known to experienced object-oriented designers: VISITOR, or dual-dispatch, for example. But these techniques carry costs of their own and generally return the structure to that of a procedural program.
+> 现在来看看代码清单 6-6 中的面向对象方案。这里，area() 方法是多态的。不需要有 Geometry 类。所以，如果添加一个新形状，现有的函数一个也不会受到影响，而当添加新函数时所有的形状都得做修改！
 
 Listing 6-6 Polymorphic Shapes
 
@@ -214,9 +212,7 @@ Mature programmers know that the idea that everything is an object is a myth. So
 
 There is a well-known heuristic called the Law of Demeter2 that says a module should not know about the innards of the objects it manipulates. As we saw in the last section, objects hide their data and expose operations. This means that an object should not expose its internal structure through accessors because to do so is to expose, rather than to hide, its internal structure.
 
-> 著名的得墨忒耳律（The Law of Demeter）[2]认为，模块不应了解它所操作对象的内部情形。如上节所见，对象隐藏数据，曝露操作。这意味着对象不应通过存取器曝露其内部结构，因为这样更像是曝露而非隐藏其内部结构。
-
-2. http://en.wikipedia.org/wiki/Law_of_Demeter
+> 著名的得墨忒耳律（The Law of Demeter）认为，模块不应了解它所操作对象的内部情形。如上节所见，对象隐藏数据，曝露操作。这意味着对象不应通过存取器曝露其内部结构，因为这样更像是曝露而非隐藏其内部结构。
 
 More precisely, the Law of Demeter says that a method f of a class C should only call the methods of these:
 
@@ -240,9 +236,7 @@ The method should not invoke methods on objects that are returned by any of the 
 
 The following code3 appears to violate the Law of Demeter (among other things) because it calls the getScratchDir() function on the return value of getOptions() and then calls getAbsolutePath() on the return value of getScratchDir().
 
-> 下列代码[3]违反了得墨忒耳律（除了违反其他规则之外），因为它调用了 getOptions( )返回值的 getScratchDir( )函数，又调用了 getScratchDir( )返回值的 getAbsolutePath( )方法。
-
-3. Found somewhere in the apache framework.
+> 下列代码违反了得墨忒耳律（除了违反其他规则之外），因为它调用了 getOptions( )返回值的 getScratchDir( )函数，又调用了 getScratchDir( )返回值的 getAbsolutePath( )方法。
 
 ```java
 final String outputDir = ctxt.getOptions().getScratchDir().getAbsolutePath();
@@ -286,9 +280,7 @@ This issue would be a lot less confusing if data structures simply had public va
 
 This confusion sometimes leads to unfortunate hybrid structures that are half object and half data structure. They have functions that do significant things, and they also have either public variables or public accessors and mutators that, for all intents and purposes, make the private variables public, tempting other external functions to use those variables the way a procedural program would use a data structure.4
 
-> 这种混淆有时会不幸导致混合结构，一半是对象，一半是数据结构。这种结构拥有执行操作的函数，也有公共变量或公共访问器及改值器。无论出于怎样的初衷，公共访问器及改值器都把私有变量公开化，诱导外部函数以过程式程序使用数据结构的方式使用这些变量[4]。
-
-4. This is sometimes called Feature Envy from [Refactoring].
+> 这种混淆有时会不幸导致混合结构，一半是对象，一半是数据结构。这种结构拥有执行操作的函数，也有公共变量或公共访问器及改值器。无论出于怎样的初衷，公共访问器及改值器都把私有变量公开化，诱导外部函数以过程式程序使用数据结构的方式使用这些变量。
 
 Such hybrids make it hard to add new functions but also make it hard to add new data structures. They are the worst of both worlds. Avoid creating them. They are indicative of a muddled design whose authors are unsure of—or worse, ignorant of—whether they need protection from functions or types.
 

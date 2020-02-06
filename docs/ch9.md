@@ -46,11 +46,9 @@ Yes, we’ve come a long way; but we have farther to go. The Agile and TDD movem
 
 ## 9.1 THE THREE LAWS OF TDD TDD 三定律
 
-By now everyone knows that TDD asks us to write unit tests first, before we write production code. But that rule is just the tip of the iceberg. Consider the following three laws:1
+By now everyone knows that TDD asks us to write unit tests first, before we write production code. But that rule is just the tip of the iceberg. Consider the following three laws:
 
-> 谁都知道 TDD 要求我们在编写生产代码前先编写单元测试。但这条规则只是冰山之巅。看看下列三定律[2]：
-
-1. Professionalism and Test-Driven Development, Robert C. Martin, Object Mentor, IEEE Software, May/June 2007 (Vol. 24, No. 3) pp. 32–36
+> 谁都知道 TDD 要求我们在编写生产代码前先编写单元测试。但这条规则只是冰山之巅。看看下列三定律：
 
 http://doi.ieeecomputersociety.org/10.1109/MS.2007.85
 
@@ -203,8 +201,7 @@ public void testGetDataAsHtml() throws Exception {
 
 For example, look at the PathParser calls. They transform strings into PagePath instances used by the crawlers. This transformation is completely irrelevant to the test at hand and serves only to obfuscate the intent. The details surrounding the creation of the responder and the gathering and casting of the response are also just noise. Then there’s the ham-handed way that the request URL is built from a resource and an argument. (I helped write this code, so I feel free to roundly criticize it.)
 
-> 请看对 PathParser 的那些调用。它们将字符串转换为供爬虫使用的
-> PagePath 实体。转换与测试毫无关系，徒然混淆了代码的意图。与创建 responder 相关的细节，还有 response 的收集与转换也尽是噪声。此外还有从 resource 和参数构造请求 URL 的笨手段。（这些代码我有幸参与编写，所以可以敞开来批评。）
+> 请看对 PathParser 的那些调用。它们将字符串转换为供爬虫使用的 PagePath 实体。转换与测试毫无关系，徒然混淆了代码的意图。与创建 responder 相关的细节，还有 response 的收集与转换也尽是噪声。此外还有从 resource 和参数构造请求 URL 的笨手段。（这些代码我有幸参与编写，所以可以敞开来批评。）
 
 In the end, this code was not designed to be read. The poor reader is inundated with a swarm of details that must be understood before the tests make any real sense.
 
@@ -212,8 +209,7 @@ In the end, this code was not designed to be read. The poor reader is inundated 
 
 Now consider the improved tests in Listing 9-2. These tests do the exact same thing, but they have been refactored into a much cleaner and more explanatory form.
 
-> 现在看看代码清单 9-2 中改进了的测试。这些测试还是做一样的
-> 事，不过已经被重构为更整洁和有表达力的形式。
+> 现在看看代码清单 9-2 中改进了的测试。这些测试还是做一样的事，不过已经被重构为更整洁和有表达力的形式。
 
 Listing 9-2 SerializedPageResponderTest.java (refactored)
 
@@ -259,9 +255,7 @@ public void testGetDataAsXml() throws Exception {
 
 The BUILD-OPERATE-CHECK2 pattern is made obvious by the structure of these tests. Each of the tests is clearly split into three parts. The first part builds up the test data, the second part operates on that test data, and the third part checks that the operation yielded the expected results.
 
-> 这些测试显然呈现了构造-操作-检验（BUILD-OPERATE-CHECK）[3]模式。每个测试都清晰地拆分为三个环节。第一个环节构造测试数据，第二个环节操作测试数据，第三个部分检验操作是否得到期望的结果。
-
-2. http://fitnesse.org/FitNesse.AcceptanceTestPatterns
+> 这些测试显然呈现了构造-操作-检验（BUILD-OPERATE-CHECK）模式。每个测试都清晰地拆分为三个环节。第一个环节构造测试数据，第二个环节操作测试数据，第三个部分检验操作是否得到期望的结果。
 
 Notice that the vast majority of annoying detail has been eliminated. The tests get right to the point and use only the data types and functions that they truly need. Anyone who reads these tests should be able to work out what they do very quickly, without being misled or overwhelmed by details.
 
@@ -334,9 +328,7 @@ Of course I hid the detail of the tic function by creating a wayTooCold function
 
 Even though this is close to a violation of the rule about mental mapping,3 it seems appropriate in this case. Notice, once you know the meaning, your eyes glide across that string and you can quickly interpret the results. Reading the test becomes almost a pleasure. Just take a look at Listing 9-5 and see how easy it is to understand these tests.
 
-> 尽管这破坏了思维映射[4]的规则，看来它在这种情况下还是适用的。只要你明白其含义，你就能一眼看到那个字符串，迅速译解出结果。
-
-3. “Avoid Mental Mapping” on page 25.
+> 尽管这破坏了思维映射的规则，看来它在这种情况下还是适用的。只要你明白其含义，你就能一眼看到那个字符串，迅速译解出结果。
 
 Listing 9-5 EnvironmentControllerTest.java (bigger selection)
 
@@ -400,9 +392,7 @@ That is the nature of the dual standard. There are things that you might never d
 
 There is a school of thought4 that says that every test function in a JUnit test should have one and only one assert statement. This rule may seem draconian, but the advantage can be seen in Listing 9-5. Those tests come to a single conclusion that is quick and easy to understand.
 
-> 有个流派[5]认为，JUnit 中每个测试函数都应该有且只有一个断言语句。这条规则看似过于苛求，但其好处却可以在代码清单 9-5 中看到。这些测试都归结为一个可快速方便地理解的结论。
-
-4. See Dave Astel’s blog entry: http://www.artima.com/weblogs/viewpost.jsp?thread=35578
+> 有个流派认为，JUnit 中每个测试函数都应该有且只有一个断言语句。这条规则看似过于苛求，但其好处却可以在代码清单 9-5 中看到。这些测试都归结为一个可快速方便地理解的结论。
 
 But what about Listing 9-2? It seems unreasonable that we could somehow easily merge the assertion that the output is XML and that it contains certain substrings. However, we can break the test into two separate tests, each with its own particular assertion, as shown in Listing 9-7.
 
@@ -432,21 +422,15 @@ public void testGetPageHierarchyHasRightTags() throws Exception {
 
 Notice that I have changed the names of the functions to use the common given-when-then5 convention. This makes the tests even easier to read. Unfortunately, splitting the tests as shown results in a lot of duplicate code.
 
-> 注意，我修改了那些函数的名称，以符合 given-when-then[6]约定。这让测试更易阅读。不幸的是，如此分解测试，导致了许多重复代码的出现。
-
-5. [RSpec].
+> 注意，我修改了那些函数的名称，以符合 given-when-then 约定。这让测试更易阅读。不幸的是，如此分解测试，导致了许多重复代码的出现。
 
 We can eliminate the duplication by using the TEMPLATE METHOD6 pattern and putting the given/when parts in the base class, and the then parts in different derivatives. Or we could create a completely separate test class and put the given and when parts in the @Before function, and the when parts in each @Test function. But this seems like too much mechanism for such a minor issue. In the end, I prefer the multiple asserts in Listing 9-2.
 
-> 可以利用模板方法（TEMPLATE METHOD）[7]模式，将 given/when 部分放到基类中，将 then 部分放到派生类中，消除代码重复问题。或者，我们也可以创建一个完整的单独测试类，把 given 和 when 部分放到@Before 函数中，把 when 部分放到每个@Test 函数中。但对于这个小问题，这看来有点太机械。最后，我还是保留了代码清单 9-2 那种多个断言的形式。
-
-6. [GOF].
+> 可以利用模板方法（TEMPLATE METHOD）模式，将 given/when 部分放到基类中，将 then 部分放到派生类中，消除代码重复问题。或者，我们也可以创建一个完整的单独测试类，把 given 和 when 部分放到@Before 函数中，把 when 部分放到每个@Test 函数中。但对于这个小问题，这看来有点太机械。最后，我还是保留了代码清单 9-2 那种多个断言的形式。
 
 I think the single assert rule is a good guideline.7 I usually try to create a domain-specific testing language that supports it, as in Listing 9-5. But I am not afraid to put more than one assert in a test. I think the best thing we can say is that the number of asserts in a test ought to be minimized.
 
-> 我认为，单个断言是个好准则[8]。我通常都会创建支持这条准则的特定领域测试语言，如代码清单 9-5 所示。不过，我也不害怕在单个测试中放入一个以上断言。我认为，最好的说法是单个测试中的断言数量应该最小化。
-
-7. “Keep to the code!”
+> 我认为，单个断言是个好准则。我通常都会创建支持这条准则的特定领域测试语言，如代码清单 9-5 所示。不过，我也不害怕在单个测试中放入一个以上断言。我认为，最好的说法是单个测试中的断言数量应该最小化。
 
 ### Single Concept per Test 每个测试一个概念
 
@@ -515,8 +499,6 @@ So it’s not the multiple asserts in each section of Listing 9-8 that causes th
 > 并非是代码清单 9-8 中每个段落的多重断言导致问题。问题在于，有多个概念被测试，所以，最佳规则也许是应该尽可能减少每个概念的断言数量，每个测试函数只测试一个概念。
 
 ## 9.5 F.I.R.S.T.
-
-8. Object Mentor Training Materials.
 
 Clean tests follow five other rules that form the above acronym:
 

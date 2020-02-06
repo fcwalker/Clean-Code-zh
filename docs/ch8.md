@@ -96,9 +96,7 @@ Suppose it is not clear how to use our third-party library. We might spend a day
 
 Learning the third-party code is hard. Integrating the third-party code is hard too. Doing both at the same time is doubly hard. What if we took a different approach? Instead of experimenting and trying out the new stuff in our production code, we could write some tests to explore our understanding of the third-party code. Jim Newkirk calls such tests learning tests.1
 
-> 学习第三方代码很难。整合第三方代码也很难。同时做这两件事难上加难。如果我们采用不同的做法呢？不要在生产代码中试验新东西，而是编写测试来遍览和理解第三方代码。Jim Newkirk 把这叫做学习性测试（learning tests）1。
-
-1. [BeckTDD], pp. 136–137.
+> 学习第三方代码很难。整合第三方代码也很难。同时做这两件事难上加难。如果我们采用不同的做法呢？不要在生产代码中试验新东西，而是编写测试来遍览和理解第三方代码。Jim Newkirk 把这叫做学习性测试（learning tests）。
 
 In learning tests we call the third-party API, as we expect to use it in our application. We’re essentially doing controlled experiments that check our understanding of that API. The tests focus on what we want out of the API.
 
@@ -256,9 +254,7 @@ One good thing about writing the interface we wish we had is that it’s under o
 
 In Figure 8-2, you can see that we insulated the CommunicationsController classes from the transmitter API (which was out of our control and undefined). By using our own application specific interface, we kept our CommunicationsController code clean and expressive. Once the transmitter API was defined, we wrote the TransmitterAdapter to bridge the gap. The ADAPTER2 encapsulated the interaction with the API and provides a single place to change when the API evolves.
 
-> 在图 8-2 中可以看到，我们将 CommunicationsController 类从发送器 API（该 API 不受我们控制，而且还没定义）中隔离出来。通过使用符合应用程序的接口，CommunicationsController 代码整洁且足以表达其意图。一旦发送器 API 被定义出来，我们就编写 TransmitterAdapter 来跨接。ADAPTER[1]封装了与 API 的互动，也提供了一个当 API 发生变动时唯一需要改动的地方。
-
-2. See the Adapter pattern in [GOF].
+> 在图 8-2 中可以看到，我们将 CommunicationsController 类从发送器 API（该 API 不受我们控制，而且还没定义）中隔离出来。通过使用符合应用程序的接口，CommunicationsController 代码整洁且足以表达其意图。一旦发送器 API 被定义出来，我们就编写 TransmitterAdapter 来跨接。ADAPTER 封装了与 API 的互动，也提供了一个当 API 发生变动时唯一需要改动的地方。
 
 Figure 8-2 Predicting the transmitter
 
@@ -266,9 +262,7 @@ Figure 8-2 Predicting the transmitter
 
 This design also gives us a very convenient seam3 in the code for testing. Using a suitable FakeTransmitter, we can test the CommunicationsController classes. We can also create boundary tests once we have the TransmitterAPI that make sure we are using the API correctly.
 
-> 这套设计方案为测试提供了一种极为方便的接缝[2]。使用适当的 FakeTransmitter，我们就能测试 CommunicationsController 类。在拿到 TransmitterAPI 时，我们也能创建确保正确使用 API 的边界测试。
-
-3. See more about seams in [WELC].
+> 这套设计方案为测试提供了一种极为方便的接缝。使用适当的 FakeTransmitter，我们就能测试 CommunicationsController 类。在拿到 TransmitterAPI 时，我们也能创建确保正确使用 API 的边界测试。
 
 ## 8.6 CLEAN BOUNDARIES 整洁的边界
 

@@ -93,7 +93,7 @@ Notice that the simplicity of the code has not changed. It still has exactly the
 
 We can go further and write a simple class for cells instead of using an array of ints. It can include an intention-revealing function (call it isFlagged) to hide the magic numbers. It results in a new version of the function:
 
-> 还可以更进一步，不用 int 数组表示单元格，而是另写一个类。该类包括一个名副其实的函数（称为 isFlagged），从而掩盖住那个魔术数[1]。于是得到函数的新版本：
+> 还可以更进一步，不用 int 数组表示单元格，而是另写一个类。该类包括一个名副其实的函数（称为 isFlagged），从而掩盖住那个魔术数。于是得到函数的新版本：
 
 ```java
 public List<Cell> getFlaggedCells() {
@@ -113,13 +113,11 @@ With these simple name changes, it’s not difficult to understand what’s goin
 
 Programmers must avoid leaving false clues that obscure the meaning of code. We should avoid words whose entrenched meanings vary from our intended meaning. For example, hp, aix, and sco would be poor variable names because they are the names of Unix platforms or variants. Even if you are coding a hypotenuse and hp looks like a good abbreviation, it could be disinformative.
 
-> 程序员必须避免留下掩藏代码本意的错误线索。应当避免使用与本意相悖的词。例如，hp、aix 和 sco 都不该用做变量名，因为它们都是 UNIX 平台或类 UNIX 平台的专有名称。即便你是在编写三角计算程序， hp 看起来是个不错的缩写[2]，但那也可能会提供错误信息。
+> 程序员必须避免留下掩藏代码本意的错误线索。应当避免使用与本意相悖的词。例如，hp、aix 和 sco 都不该用做变量名，因为它们都是 UNIX 平台或类 UNIX 平台的专有名称。即便你是在编写三角计算程序， hp 看起来是个不错的缩写，但那也可能会提供错误信息。
 
 Do not refer to a grouping of accounts as an accountList unless it’s actually a List. The word list means something specific to programmers. If the container holding the accounts is not actually a List, it may lead to false conclusions.1 So accountGroup or bunchOfAccounts or just plain accounts would be better.
 
-> 别用 accountList 来指称一组账号，除非它真的是 List 类型。List 一词对程序员有特殊意义。如果包纳账号的容器并非真是个 List，就会引起错误的判断[3]。所以，用 accountGroup 或 bunchOfAccounts，甚至直接用 accounts 都会好一些。
-
-1. As we’ll see later on, even if the container is a List, it’s probably better not to encode the container type into the name.
+> 别用 accountList 来指称一组账号，除非它真的是 List 类型。List 一词对程序员有特殊意义。如果包纳账号的容器并非真是个 List，就会引起错误的判断。所以，用 accountGroup 或 bunchOfAccounts，甚至直接用 accounts 都会好一些。
 
 Beware of using names which vary in small ways. How long does it take to spot the subtle difference between a XYZControllerForEfficientHandlingOfStrings in one module and, somewhere a little more distant, XYZControllerForEfficientStorageOfStrings? The words have frightfully similar shapes.
 
@@ -153,8 +151,6 @@ Programmers create problems for themselves when they write code solely to satisf
 
 > 如果程序员只是为满足编译器或解释器的需要而写代码，就会制造麻烦。例如，因为同一作用范围内两样不同的东西不能重名，你可能会随手改掉其中一个的名称。有时干脆以错误的拼写充数，结果就是出现在更正拼写错误后导致编译器出错的情况。
 
-2. Consider, for example, the truly hideous practice of creating a variable named klass just because the name class was used for something else.
-
 It is not sufficient to add number series or noise words, even though the compiler is satisfied. If names must be different, then they should also mean something different.
 
 > 光是添加数字系列或是废话远远不够，即便这足以让编译器满意。如果名称必须相异，那其意思也应该不同才对。
@@ -181,9 +177,7 @@ Noise words are another meaningless distinction. Imagine that you have a Product
 
 Note that there is nothing wrong with using prefix conventions like a and the so long as they make a meaningful distinction. For example you might use a for all local variables and the for all function arguments.3 The problem comes in when you decide to call a variable theZork because you already have another variable named zork.
 
-> 注意，只要体现出有意义的区分，使用 a 和 the 这样的前缀就没错。例如，你可能把 a 用在域内变量，而把 the 用于函数参数[5]。但如果你已经有一个名为 zork 的变量，又想调用一个名为 theZork 的变量，麻烦就来了。
-
-3. Uncle Bob used to do this in C++ but has given up the practice because modern IDEs make it unnecessary.
+> 注意，只要体现出有意义的区分，使用 a 和 the 这样的前缀就没错。例如，你可能把 a 用在域内变量，而把 the 用于函数参数。但如果你已经有一个名为 zork 的变量，又想调用一个名为 theZork 的变量，麻烦就来了。
 
 Noise words are redundant. The word variable should never appear in a variable name. The word table should never appear in a table name. How is NameString better than Name? Would a Name ever be a floating point number? If so, it breaks an earlier rule about disinformation. Imagine finding one class named Customer and another named CustomerObject. What should you understand as the distinction? Which one will represent the best path to a customer’s payment history?
 
@@ -215,11 +209,11 @@ Humans are good at words. A significant part of our brains is dedicated to the c
 
 If you can’t pronounce it, you can’t discuss it without sounding like an idiot. “Well, over here on the bee cee arr three cee enn tee we have a pee ess zee kyew int, see?” This matters because programming is a social activity.
 
-> 如果名称读不出来，讨论的时候就会像个傻鸟。“哎，这儿，鼻涕阿三喜摁踢（bee cee arr three cee enn tee）[6]上头，有个皮挨死极翘（pee ess zee kyew）[7]整数，看见没？”这不是小事，因为编程本就是一种社会活动。
+> 如果名称读不出来，讨论的时候就会像个傻鸟。“哎，这儿，鼻涕阿三喜摁踢（bee cee arr three cee enn tee）上头，有个皮挨死极翘（pee ess zee kyew）整数，看见没？”这不是小事，因为编程本就是一种社会活动。
 
 A company I know has genymdhms (generation date, year, month, day, hour, minute, and second) so they walked around saying “gen why emm dee aich emm ess”. I have an annoying habit of pronouncing everything as written, so I started saying “gen-yah-muddahims.” It later was being called this by a host of designers and analysts, and we still sounded silly. But we were in on the joke, so it was fun. Fun or not, we were tolerating poor naming. New developers had to have the variables explained to them, and then they spoke about it in silly made-up words instead of using proper English terms. Compare
 
-> 有家公司，程序里面写了个 genymdhms（生成日期，年、月、日、时、分、秒），他们一般读作“gen why emm dee aich emm ess”[8]。我有个见字照读的恶习，于是开口就念“gen-yah-mudda-hims”。后来好些设计师和分析师都有样学样，听起来傻乎乎的。我们知道典故，所以会觉得很搞笑。搞笑归搞笑，实际是在强忍糟糕的命名。在给新开发者解释变量的意义时，他们总是读出傻乎乎的自造词，而非恰当的英语词。比较
+> 有家公司，程序里面写了个 genymdhms（生成日期，年、月、日、时、分、秒），他们一般读作“gen why emm dee aich emm ess”。我有个见字照读的恶习，于是开口就念“gen-yah-mudda-hims”。后来好些设计师和分析师都有样学样，听起来傻乎乎的。我们知道典故，所以会觉得很搞笑。搞笑归搞笑，实际是在强忍糟糕的命名。在给新开发者解释变量的意义时，他们总是读出傻乎乎的自造词，而非恰当的英语词。比较
 
 ```java
 class DtaRcrd102 {
@@ -245,7 +239,7 @@ class Customer {
 
 Intelligent conversation is now possible: “Hey, Mikey, take a look at this record! The generation timestamp is set to tomorrow’s date! How can that be?”
 
-现在读起来就像人话了：“喂，Mikey，看看这条记录！生成时间戳（generation timestamp） [9]被设置为明天了！不能这样吧？”
+现在读起来就像人话了：“喂，Mikey，看看这条记录！生成时间戳（generation timestamp）被设置为明天了！不能这样吧？”
 
 ## 2.6 USE SEARCHABLE NAMES 使用可搜索的名称
 
@@ -382,9 +376,7 @@ Classes and objects should have noun or noun phrase names like Customer, WikiPag
 
 Methods should have verb or verb phrase names like postPayment, deletePage, or save. Accessors, mutators, and predicates should be named for their value and prefixed with get, set, and is according to the javabean standard.4
 
-> 方法名应当是动词或动词短语，如 postPayment、deletePage 或 save。属性访问器、修改器和断言应该根据其值命名，并依 Javabean 标准[10]加上 get、set 和 is 前缀。
-
-4. http://java.sun.com/products/javabeans/docs/spec.html
+> 方法名应当是动词或动词短语，如 postPayment、deletePage 或 save。属性访问器、修改器和断言应该根据其值命名，并依 Javabean 标准加上 get、set 和 is 前缀。
 
 ```java
 string name = employee.getName();
@@ -416,13 +408,13 @@ Consider enforcing their use by making the corresponding constructors private.
 
 If names are too clever, they will be memorable only to people who share the author’s sense of humor, and only as long as these people remember the joke. Will they know what the function named HolyHandGrenade is supposed to do? Sure, it’s cute, but maybe in this case DeleteItems might be a better name. Choose clarity over entertainment value.
 
-> 如果名称太耍宝，那就只有同作者一般有幽默感的人才能记得住，而且还是在他们记得那个笑话的时候才行。谁会知道名为 HolyHandGrenade[11]的函数是用来做什么的呢？没错，这名字挺伶俐，不过 DeleteItems[12]或许是更好的名称。宁可明确，毋为好玩。
+> 如果名称太耍宝，那就只有同作者一般有幽默感的人才能记得住，而且还是在他们记得那个笑话的时候才行。谁会知道名为 HolyHandGrenade 的函数是用来做什么的呢？没错，这名字挺伶俐，不过 DeleteItems 或许是更好的名称。宁可明确，毋为好玩。
 
 ![](figures/ch2/2_3fig_martin.jpg)
 
 Cuteness in code often appears in the form of colloquialisms or slang. For example, don’t use the name whack() to mean kill(). Don’t tell little culture-dependent jokes like eatMyShorts() to mean abort().
 
-> 扮可爱的做法在代码中经常体现为使用俗话或俚语。例如，别用 whack( )[13]来表示 kill( )。别用 eatMyShorts( )[14]这类与文化紧密相关的笑话来表示 abort( )。
+> 扮可爱的做法在代码中经常体现为使用俗话或俚语。例如，别用 whack() 来表示 kill( )。别用 eatMyShorts() 这类与文化紧密相关的笑话来表示 abort( )。
 
 Say what you mean. Mean what you say.
 
@@ -468,9 +460,11 @@ Our goal, as authors, is to make our code as easy as possible to understand. We 
 
 Remember that the people who read your code will be programmers. So go ahead and use computer science (CS) terms, algorithm names, pattern names, math terms, and so forth. It is not wise to draw every name from the problem domain because we don’t want our coworkers to have to run back and forth to the customer asking what every name means when they already know the concept by a different name.
 
-> 记住，只有程序员才会读你的代码。所以，尽管用那些计算机科学（Computer Science，CS）术语、算法名、模式名、数学术语吧。依据问题所涉领域来命名可不算是聪明的做法，因为不该让协作者老是跑去问客户每个名称的含义，其实他们早该通过另一名称了解这个概念了。对于熟悉访问者（VISITOR）模式的程序来说，名称 AccountVisitor 富有意义。哪个程序员会不知道 JobQueue 的意思呢？程序员要做太多技术性工作。给这些事取个技术性的名称，通常是最靠谱的做法。
+> 记住，只有程序员才会读你的代码。所以，尽管用那些计算机科学（Computer Science，CS）术语、算法名、模式名、数学术语吧。依据问题所涉领域来命名可不算是聪明的做法，因为不该让协作者老是跑去问客户每个名称的含义，其实他们早该通过另一名称了解这个概念了。
 
 The name AccountVisitor means a great deal to a programmer who is familiar with the VISITOR pattern. What programmer would not know what a JobQueue was? There are lots of very technical things that programmers have to do. Choosing technical names for those things is usually the most appropriate course.
+
+> 对于熟悉访问者（VISITOR）模式的程序来说，名称 AccountVisitor 富有意义。哪个程序员会不知道 JobQueue 的意思呢？程序员要做太多技术性工作。给这些事取个技术性的名称，通常是最靠谱的做法。
 
 ## 2.15 USE PROBLEM DOMAIN NAMES 使用源自所涉问题领域的名称
 

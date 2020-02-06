@@ -42,8 +42,6 @@ I was recently reading the preface to Kent Beck’s book Implementation Patterns
 
 > 最近我在读 Kent Beck 著 Implementation Patterns（中译版《实现模式》）[1]一书的序言。他这样写道：“……本书基于一种不太牢靠的前提：好代码的确重要……”这前提不牢靠？我反对！我认为这是该领域最强固、最受支持、最被强调的前提了（我想 Kent 也知道）。我们知道好代码重要，是因为其短缺实在困扰了我们太久。
 
-1. [Beck07].
-
 I know of one company that, in the late 80s, wrote a killer app. It was very popular, and lots of professionals bought and used it. But then the release cycles began to stretch. Bugs were not repaired from one release to the next. Load times grew and crashes increased. I remember the day I shut the product down in frustration and never used it again. The company went out of business a short time after that.
 
 > 20 世纪 80 年代末，有家公司写了个很流行的杀手应用，许多专业人士都买来用。然后，发布周期开始拉长。缺陷总是不能修复。装载时间越来越久，崩溃的几率也越来越大。至今我还记得自己在某天沮丧地关掉那个程序，从此再不用它。在那之后不久，该公司就关门大吉了。
@@ -114,7 +112,7 @@ Have you ever waded through a mess so grave that it took weeks to do what should
 
 Why does this happen to code? Why does good code rot so quickly into bad code? We have lots of explanations for it. We complain that the requirements changed in ways that thwart the original design. We bemoan the schedules that were too tight to do things right. We blather about stupid managers and intolerant customers and useless marketing types and telephone sanitizers. But the fault, dear Dilbert, is not in our stars, but in ourselves. We are unprofessional.
 
-> 怎么会发生这种事？为什么好代码会这么快就变质成糟糕的代码？理由多得很。我们抱怨需求变化背离了初期设计。我们哀叹进度太紧张，没法干好活。我们把问题归咎于那些愚蠢的经理、苛求的用户、没用的营销方式和那些电话消毒剂。不过，亲爱的呆伯特（Dilbert）[2]，我们是自作自受[3]。我们太不专业了。
+> 怎么会发生这种事？为什么好代码会这么快就变质成糟糕的代码？理由多得很。我们抱怨需求变化背离了初期设计。我们哀叹进度太紧张，没法干好活。我们把问题归咎于那些愚蠢的经理、苛求的用户、没用的营销方式和那些电话消毒剂。不过，亲爱的呆伯特（Dilbert），我们是自作自受。我们太不专业了。
 
 This may be a bitter pill to swallow. How could this mess be our fault? What about the requirements? What about the schedule? What about the stupid managers and the useless marketing types? Don’t they bear some of the blame?
 
@@ -130,9 +128,7 @@ No. The managers and marketers look to us for the information they need to make 
 
 To drive this point home, what if you were a doctor and had a patient who demanded that you stop all the silly hand-washing in preparation for surgery because it was taking too much time?2 Clearly the patient is the boss; and yet the doctor should absolutely refuse to comply. Why? Because the doctor knows more than the patient about the risks of disease and infection. It would be unprofessional (never mind criminal) for the doctor to comply with the patient.
 
-> 再说明白些，假使你是位医生，病人请求你在给他做手术前别洗手，因为那会花太多时间，你会照办吗[4]？本该是病人说了算；但医生却绝对应该拒绝遵从。为什么？因为医生比病人更了解疾病和感染的风险。医生如果按病人说的办，就是一种不专业的态度（更别说是犯罪了）。
-
-2. When hand-washing was first recommended to physicians by Ignaz Semmelweis in 1847, it was rejected on the basis that doctors were too busy and wouldn’t have time to wash their hands between patient visits.
+> 再说明白些，假使你是位医生，病人请求你在给他做手术前别洗手，因为那会花太多时间，你会照办吗？本该是病人说了算；但医生却绝对应该拒绝遵从。为什么？因为医生比病人更了解疾病和感染的风险。医生如果按病人说的办，就是一种不专业的态度（更别说是犯罪了）。
 
 So too it is unprofessional for programmers to bend to the will of managers who don’t understand the risks of making messes.
 
@@ -196,9 +192,7 @@ Bjarne also mentions efficiency—twice. Perhaps this should not surprise us com
 
 Pragmatic Dave Thomas and Andy Hunt said this a different way. They used the metaphor of broken windows.3 A building with broken windows looks like nobody cares about it. So other people stop caring. They allow more windows to become broken. Eventually they actively break them. They despoil the facade with graffiti and allow garbage to collect. One broken window starts the process toward decay.
 
-> 务实的 Dave Thomas 和 Andy Hunt 从另一角度阐述了这种情况。他们提到破窗理论[5]。窗户破损了的建筑让人觉得似乎无人照管。于是别人也再不关心。他们放任窗户继续破损。最终自己也参加破坏活动，在外墙上涂鸦，任垃圾堆积。一扇破损的窗户开辟了大厦走向倾颓的道路。
-
-3. http://www.pragmaticprogrammer.com/booksellers/2004-12.html
+> 务实的 Dave Thomas 和 Andy Hunt 从另一角度阐述了这种情况。他们提到破窗理论。窗户破损了的建筑让人觉得似乎无人照管。于是别人也再不关心。他们放任窗户继续破损。最终自己也参加破坏活动，在外墙上涂鸦，任垃圾堆积。一扇破损的窗户开辟了大厦走向倾颓的道路。
 
 Bjarne also mentions that error handing should be complete. This goes to the discipline of paying attention to details. Abbreviated error handling is just one way that programmers gloss over details. Memory leaks are another, race conditions still another. Inconsistent naming yet another. The upshot is that clean code exhibits close attention to detail.
 
@@ -254,9 +248,7 @@ Dave uses the word minimal twice. Apparently he values code that is small, rathe
 
 Dave also says that code should be literate. This is a soft reference to Knuth’s literate programming.4 The upshot is that the code should be composed in such a form as to make it readable by humans.
 
-> Dave 也提到，代码应在字面上表达其含义。这一观点源自 Knuth 的“字面编程”（literate programming）[6]。结论就是应当用人类可读的方式来写代码。
-
-4. [Knuth92].
+> Dave 也提到，代码应在字面上表达其含义。这一观点源自 Knuth 的“字面编程”（literate programming）。结论就是应当用人类可读的方式来写代码。
 
 Michael Feathers, author of Working Effectively with Legacy Code
 
@@ -382,7 +374,7 @@ None of these different schools is absolutely right. Yet within a particular sch
 
 Consider this book a description of the Object Mentor School of Clean Code. The techniques and teachings within are the way that we practice our art. We are willing to claim that if you follow these teachings, you will enjoy the benefits that we have enjoyed, and you will learn to write code that is clean and professional. But don’t make the mistake of thinking that we are somehow “right” in any absolute sense. There are other schools and other masters that have just as much claim to professionalism as we. It would behoove you to learn from them as well.
 
-> 可以把本书看作是对象导师（Object Mentor）[7]整洁代码派的说明。里面要传授的就是我们勤操己艺的方法。如果你遵从这些教诲，你就会如我们一般乐受其益，你将学会如何编写整洁而专业的代码。但无论如何也别错以为我们是“正确的”。其他门派和师傅和我们一样专业。你有必要也向他们学习。
+> 可以把本书看作是对象导师（Object Mentor）整洁代码派的说明。里面要传授的就是我们勤操己艺的方法。如果你遵从这些教诲，你就会如我们一般乐受其益，你将学会如何编写整洁而专业的代码。但无论如何也别错以为我们是“正确的”。其他门派和师傅和我们一样专业。你有必要也向他们学习。
 
 Indeed, many of the recommendations in this book are controversial. You will probably not agree with all of them. You might violently disagree with some of them. That’s fine. We can’t claim final authority. On the other hand, the recommendations in this book are things that we have thought long and hard about. We have learned them through decades of experience and repeated trial and error. So whether you agree or disagree, it would be a shame if you did not see, and respect, our point of view.
 
@@ -463,8 +455,6 @@ The Boy Scouts of America have a simple rule that we can apply to our profession
 Leave the campground cleaner than you found it.5
 
 > 让营地比你来时更干净。
-
-5. This was adapted from Robert Stephenson Smyth Baden-Powell’s farewell message to the Scouts: “Try and leave this world a little better than you found it…”
 
 If we all checked-in our code a little cleaner than when we checked it out, the code simply could not rot. The cleanup doesn’t have to be something big. Change one variable name for the better, break up one function that’s a little too large, eliminate one small bit of duplication, clean up one composite if statement.
 
