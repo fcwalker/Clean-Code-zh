@@ -1,12 +1,6 @@
-# Clean Code 中文
+# 目录
 
-<div style="margin: 0 auto; width: 40%;">
-  <img src='./cover.jpg'/>
-</div>
-
-## 序
-
-## 目录
+<img src="./cover.jpg" style="width: 28%" />
 
 - [第 1 章 整洁代码](ch1.md)
 - [第 2 章 有意义的命名](ch2.md)
