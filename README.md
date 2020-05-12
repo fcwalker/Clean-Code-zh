@@ -54,4 +54,4 @@ http://localhost:8080/doc-cleancode/
 
 ## License
 
-[MIT](https://github.com/gdut-yy/Clean-Code-zh/blob/master/LICENSE)
+[MIT](./LICENSE)
