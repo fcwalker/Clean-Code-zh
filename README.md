@@ -31,7 +31,7 @@
 
 ## 本地开发 & 阅读
 
-本项目基于 vuepress 进行开发，以提供比 github mardown 更佳的阅读体验
+本项目基于 vuepress 进行开发，以提供比 github markdown 更佳的阅读体验
 
 依赖于 `node.js`、`yarn`、`vuepress` 等环境
 
